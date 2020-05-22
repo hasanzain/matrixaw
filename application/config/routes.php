@@ -72,6 +72,8 @@ $route['update_inventory'] = 'inventory/update_inventory';
 $route['tambah_alarm'] = 'cek/tambah_alarm';
 $route['dashboard'] = 'cek/list_alarm';
 $route['bayar_cek'] = 'cek/delete';
+$route['report'] = 'report';
+$route['export'] = 'report/export';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

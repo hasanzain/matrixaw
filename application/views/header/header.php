@@ -14,7 +14,7 @@
 </head>
 
 <body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-light bg-primary">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-primary">
         <a class="navbar-brand" href="index.html">Toko Matrix AW</a><button
             class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
                 class="fas fa-bars"></i></button><!-- Navbar Search-->
@@ -47,7 +47,7 @@
                 <div class="sb-sidenav-menu">
                     <div class="nav">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="<?= base_url('dashboard') ?>">
+                        <a class="nav-link bg-warni" href="<?= base_url('dashboard') ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
@@ -146,6 +146,21 @@
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="<?= base_url('tambah_alarm') ?>">Tambah Alarm</a>
+                                <a class="nav-link" href="<?= base_url('daftar_alarm') ?>">Daftar Inventory</a>
+                            </nav>
+                        </div>
+
+
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts6"
+                            aria-expanded="false" aria-controls="collapseLayouts6">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Report
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts6" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?= base_url('report') ?>">Report</a>
                                 <a class="nav-link" href="<?= base_url('daftar_alarm') ?>">Daftar Inventory</a>
                             </nav>
                         </div>

@@ -42,7 +42,7 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label>Nama Laporan </label>
-                                    <select class="form-control" name="Tahun">
+                                    <select class="form-control" name="tahun">
                                         <option value="2020">2020</option>
                                         <option value="2021">2021</option>
                                         <option value="2022">2022</option>
@@ -50,19 +50,18 @@
                                     <?= form_error('nama_laporan','<small class="text-danger pl-3">','</small>'); ?>
                                 </div>
                             </div>
-                            <form>
-                                <div class="form-group">
-                                    <label>Dari </label>
-                                    <input type="date" class="form-control" name="dari">
-                                    <?= form_error('dari','<small class="text-danger pl-3">','</small>'); ?>
-                                </div>
-                                <div class="form-group">
-                                    <label>Sampai</label>
-                                    <input type="date" class="form-control" name="sampai">
-                                    <?= form_error('sampai','<small class="text-danger pl-3">','</small>'); ?>
-                                </div>
-                                <input type="submit" class="btn btn-primary" value="Buat Laporan">
-                            </form>
+                            <div class="form-group">
+                                <label>Dari </label>
+                                <input type="date" class="form-control" name="dari">
+                                <?= form_error('dari','<small class="text-danger pl-3">','</small>'); ?>
+                            </div>
+                            <div class="form-group">
+                                <label>Sampai</label>
+                                <input type="date" class="form-control" name="sampai">
+                                <?= form_error('sampai','<small class="text-danger pl-3">','</small>'); ?>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Buat Laporan">
+                        </form>
                     </div>
                 </div>
             </div>

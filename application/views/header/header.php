@@ -64,6 +64,7 @@
                                 <a class="nav-link" href="<?= base_url('penjualan_harian') ?>">Penjualan Harian</a>
                                 <a class="nav-link" href="<?= base_url('form_laporan') ?>">Form laporan</a>
                                 <a class="nav-link" href="<?= base_url('laporan_penjualan') ?>">Laporan Penjualan</a>
+                                <a class="nav-link" href="<?= base_url('data_penjualan') ?>">Data Penjualan</a>
                             </nav>
                         </div>
 

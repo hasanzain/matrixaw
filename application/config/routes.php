@@ -53,6 +53,7 @@ $route['default_controller'] = 'cek/list_alarm';
 $route['penjualan_harian'] = 'laporan_keuangan/penjualan_harian';
 $route['form_laporan'] = 'laporan_keuangan/form_laporan';
 $route['laporan_penjualan'] = 'laporan_keuangan/laporan_penjualan';
+$route['data_penjualan'] = 'laporan_keuangan/data_penjualan';
 $route['order_barang'] = 'barang/order_barang';
 $route['barang_masuk'] = 'barang/barang_masuk';
 $route['stok_barang'] = 'barang/stok_barang';

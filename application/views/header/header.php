@@ -65,6 +65,7 @@
                                 <a class="nav-link" href="<?= base_url('form_laporan') ?>">Form laporan</a>
                                 <a class="nav-link" href="<?= base_url('laporan_penjualan') ?>">Laporan Penjualan</a>
                                 <a class="nav-link" href="<?= base_url('data_penjualan') ?>">Data Penjualan</a>
+                                <a class="nav-link" href="<?= base_url('kredit') ?>">Pengeluaran</a>
                             </nav>
                         </div>
 
@@ -86,6 +87,23 @@
                                     Masuk</a>
 
                             </nav>
+
+
+                        </div>
+                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutsx"
+                            aria-expanded="false" aria-controls="collapseLayoutsx">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Mixing
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayoutsx" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?= base_url('barang_masuk') ?>">Pengambilan</a>
+                                <a class="nav-link" href="<?= base_url('retur_barang') ?>">Penjualan</a>
+                                Masuk</a>
+
+                            </nav>
                         </div>
 
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts2"
@@ -97,9 +115,9 @@
                         <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?= base_url('hutang') ?>">Hutang</a>
-                                <a class="nav-link" href="<?= base_url('pembayaran') ?>">Pembayaran</a>
-                                <a class="nav-link" href="<?= base_url('daftar_hutang') ?>">Daftar Hutang</a>
+                                <a class="nav-link" href="<?= base_url('hutang_customer') ?>">Hutang</a>
+                                <a class="nav-link" href="<?= base_url('pembayaran_customer') ?>">Pembayaran</a>
+                                <a class="nav-link" href="<?= base_url('daftar_hutang_customer') ?>">Daftar Hutang</a>
 
                             </nav>
                         </div>
@@ -114,9 +132,9 @@
                         <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?= base_url('hutang') ?>">Hutang</a>
-                                <a class="nav-link" href="<?= base_url('pembayaran') ?>">Pembayaran</a>
-                                <a class="nav-link" href="<?= base_url('daftar_hutang') ?>">Daftar Hutang</a>
+                                <a class="nav-link" href="<?= base_url('hutang_toko') ?>">Hutang</a>
+                                <a class="nav-link" href="<?= base_url('pembayaran_toko') ?>">Pembayaran</a>
+                                <a class="nav-link" href="<?= base_url('daftar_hutang_toko') ?>">Daftar Hutang</a>
                             </nav>
                         </div>
 

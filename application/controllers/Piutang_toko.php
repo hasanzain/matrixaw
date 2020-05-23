@@ -90,11 +90,27 @@ class piutang_toko extends CI_Controller {
     //Update one item
     public function daftar_hutang()
     {
-        $data = array(
+        $tanggal = $this->input->post('tanggal');
+
+        
+        if($tanggal == null){
+            $data = array(
+                'hutang_toko' => null
+                );
+            $this->load->view('header/header');
+            $this->load->view('piutang_toko/daftar_hutang',$data);
+            $this->load->view('header/footer');
+        }
+        else{
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
+            $this->db->where('tanggal', $tanggal);
+            $data = array(
             'hutang_toko' => $this->db->get('piutang_toko'));
-        $this->load->view('header/header');
-        $this->load->view('piutang_toko/daftar_hutang',$data);
-        $this->load->view('header/footer');
+            $this->load->view('header/header');
+            $this->load->view('piutang_toko/daftar_hutang',$data);
+            $this->load->view('header/footer');
+            }
     }
 
     //Delete one item

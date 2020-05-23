@@ -13,7 +13,8 @@
                                 <div class="input-group">
                                     <input class="form-control" type="date" name="tanggal">
                                     <div class="input-group-append">
-                                        <input class="btn btn-outline-primary" type="submit" value="cari">
+                                        <input class="btn btn-outline-primary col-lg-10" type="submit" value="cari">
+                                        <button onclick="window.print()" class="btn btn-warning">Print</button>
                                     </div>
                                 </div>
                             </div>

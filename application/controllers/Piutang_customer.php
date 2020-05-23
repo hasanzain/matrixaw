@@ -90,11 +90,30 @@ class piutang_customer extends CI_Controller {
     //Update one item
     public function daftar_hutang()
     {
-        $data = array(
+
+        $tanggal = $this->input->post('tanggal');
+
+        
+        if($tanggal == null){
+            $data = array(
+                'hutang_customer' => null
+                );
+            $this->load->view('header/header');
+            $this->load->view('piutang_customer/daftar_hutang',$data);
+            $this->load->view('header/footer');
+        }
+        else{
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
+            $this->db->where('tanggal', $tanggal);
+            $data = array(
             'hutang_customer' => $this->db->get('piutang_customer'));
-        $this->load->view('header/header');
-        $this->load->view('piutang_customer/daftar_hutang',$data);
-        $this->load->view('header/footer');
+            $this->load->view('header/header');
+            $this->load->view('piutang_customer/daftar_hutang',$data);
+            $this->load->view('header/footer');
+            }
+        
+        
     }
 
     //Delete one item

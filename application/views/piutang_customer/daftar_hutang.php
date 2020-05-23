@@ -5,8 +5,25 @@
 
             <div class="row">
                 <div class="col-lg-12">
+                    <form action="<?= base_url("daftar_hutang_customer") ?>" method="post">
+
+                        <div class=" form-row col-ld-9">
+                            <div class="form-group col-md-3">
+                                <div class="input-group">
+                                    <input class="form-control" type="date" name="tanggal">
+                                    <div class="input-group-append">
+                                        <input class="btn btn-outline-primary col-lg-10" type="submit" value="cari">
+                                        <button onclick="window.print()" class="btn btn-warning">Print</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </form>
 
                     <div class="card mb-4">
+                        <?= $this->session->flashdata('message')?>
 
                         <table class="table table-hover">
                             <thead class="thead-light">
@@ -23,9 +40,10 @@
                             </thead>
                             <tbody>
                                 <?php
-                        $i=1;
-                      foreach ($hutang_customer->result_array() as $key) {        
-                            ?>
+                                if ($hutang_customer != null) {
+                                    $i=1;
+                                    foreach ($hutang_customer->result_array() as $key) {
+                                        ?>
                                 <tr>
                                     <th scope="row"><?= $i++ ?></th>
                                     <td><?= $key['nama_perusahaan'] ?></td>
@@ -41,7 +59,8 @@
                                     </td>
                                 </tr>
                                 <?php
-                        }
+                                    }
+                                }
                         ?>
                             </tbody>
                         </table>

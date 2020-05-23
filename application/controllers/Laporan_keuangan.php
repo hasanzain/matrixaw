@@ -194,6 +194,11 @@ class laporan_keuangan extends CI_Controller {
         
     }
 
+    public function kredit()
+    {
+        # code...
+    }
+
 }
 
 /* End of file Controllername.php */

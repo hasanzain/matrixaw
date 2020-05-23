@@ -10,30 +10,19 @@
 
                         <div class=" form-row col-ld-9">
                             <div class="form-group col-md-3">
-                                <select class="custom-select" id="inputGroupSelect04" name="laporan">
-                                    <option value="minggu_1">Minggu Ke 1</option>
-                                    <option value="minggu_2">Minggu Ke 2</option>
-                                    <option value="minggu_3">Minggu Ke 3</option>
-                                    <option value="minggu_4">Minggu Ke 4</option>
-                                    <option value="minggu_5">Minggu Ke 5</option>
-                                    <option value="bulan">Bulan</option>
-                                </select>
-                                <?= form_error('nama_laporan','<small class="text-danger pl-3">','</small>'); ?>
-                            </div>
-                            <div class="form-group col-md-3">
                                 <select class="custom-select" id="inputGroupSelect04" name="bulan">
-                                    <option value="Januari">Januari</option>
-                                    <option value="February">February</option>
-                                    <option value="Maret">Maret</option>
-                                    <option value="April">April</option>
-                                    <option value="Mei">Mei</option>
-                                    <option value="Juni">Juni</option>
-                                    <option value="Juli">Juli</option>
-                                    <option value="Agustus">Agustus</option>
-                                    <option value="September">September</option>
-                                    <option value="Oktober">Oktober</option>
-                                    <option value="November">November</option>
-                                    <option value="Desember">Desember</option>
+                                    <option value="1">Januari</option>
+                                    <option value="2">February</option>
+                                    <option value="3">Maret</option>
+                                    <option value="4">April</option>
+                                    <option value="5">Mei</option>
+                                    <option value="6">Juni</option>
+                                    <option value="7">Juli</option>
+                                    <option value="8">Agustus</option>
+                                    <option value="9">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
                                 </select>
                                 <?= form_error('nama_laporan','<small class="text-danger pl-3">','</small>'); ?>
                             </div>
@@ -66,6 +55,8 @@
                                     <th scope="col">Harga Satuan</th>
                                     <th scope="col"></th>
                                     <th scope="col">Total</th>
+                                    <th scope="col"></th>
+                                    <th scope="col">Kredit</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -73,6 +64,8 @@
                         
                         if ($laporan_penjualan != null) {
                             $i=1;
+                            $debit = 0;
+                            $kredit = 0;
                             $jumlah = 0;
                             
                             
@@ -86,16 +79,20 @@
                                     <td><?= $key['harga_satuan'] ?></td>
                                     <td class="text-right">Rp.</td>
                                     <td class="text-right"><?= $key['total'] ?></td>
+                                    <td class="text-right">Rp.</td>
+                                    <td class="text-right"><?= $key['kredit'] ?></td>
 
                                 </tr>
                                 <?php
                         $i++;
-                        $jumlah += $key['total'];
+                        $debit += $key['total'];
+                        $kredit += $key['kredit'];
                         
                             }
+                            $jumlah = $debit - $kredit;
                             echo
                                     "<tr class='table-info'>
-                                        <td colspan=4>Jumlah Total</td>
+                                        <td colspan=6>Jumlah Total</td>
                                         <td class='text-right'>Rp.</td>
                                         <td class='text-right'>$jumlah</td>
                                     </tr>";

@@ -45,41 +45,46 @@ class laporan_keuangan extends CI_Controller {
     public function form_laporan()
     {
 
-        $this->form_validation->set_rules('laporan', 'laporan', 'trim|required');
         $this->form_validation->set_rules('bulan', 'bulan', 'trim|required');
         $this->form_validation->set_rules('tahun', 'tahun', 'trim|required');
-        $this->form_validation->set_rules('dari', 'dari', 'trim|required');
-        $this->form_validation->set_rules('sampai', 'sampai', 'trim|required');
+       
 
         if ($this->form_validation->run() == FALSE) {
             $this->load->view('header/header');
             $this->load->view('laporan_keuangan/form_laporan');
             $this->load->view('header/footer');
         } else {
-            $laporan = $this->input->post('laporan');
-            $dari = $this->input->post('dari');
-            $sampai = $this->input->post('sampai');
-
+            // $dari = $this->input->post('dari');
+            // $sampai = $this->input->post('sampai');
+            $bulan = $this->input->post('bulan');
+            $tahun = $this->input->post('tahun');
+            $dari = $tahun."-".$bulan."-1";
+            $sampai = $tahun."-".$bulan."-31";
+            
 
             if ($dari != null and $sampai !=null) {
+                $status_penjualan = false;
+                $status_piutang_customer = false;
+                $status_piutang_toko = false;
+
 
 
 
                 // menambahkan data penjualan
+                // $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
                 $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
                 $penjualan = $this->db->get('penjualan')->result_array();
                 foreach ($penjualan as $key) {
                     $data = array(
-                        'laporan' => $laporan,
-                        'bulan' => $this->input->post('bulan'),
-                        'tahun' => $this->input->post('tahun'),
+                        'bulan' => $bulan,
+                        'tahun' => $tahun,
                         'tanggal' => $key['tanggal'],
                         'nama_barang' => $key['nama_barang'],
                         'jumlah_beli' => $key['jumlah_beli'],
                         'harga_satuan' => $key['harga_satuan'],
                         'total' => $key['total']
                      );
-                    $tatus_penjualan = $this->db->insert('laporan_penjualan', $data);
+                    $status_penjualan = $this->db->insert('laporan_penjualan', $data);
                 }
                 // menambahkan data penjualan
 
@@ -88,15 +93,14 @@ class laporan_keuangan extends CI_Controller {
                 $piutang_custmer = $this->db->get('piutang_customer')->result_array();
                 foreach ($piutang_custmer as $key) {
                     $data = array(
-                        'laporan' => $laporan,
-                        'bulan' => $this->input->post('bulan'),
-                        'tahun' => $this->input->post('tahun'),
+                        'bulan' => $bulan,
+                        'tahun' => $tahun,
                         'tanggal' => $key['tanggal'],
                         'nama_barang' => $key['nama_perusahaan'],
                         'total' => $key['nominal_pembayaran'],
                         'kredit' => $key['nominal_hutang']
                      );
-                     $tatus_piutang_customer = $this->db->insert('laporan_penjualan', $data);
+                     $status_piutang_customer = $this->db->insert('laporan_penjualan', $data);
                      
                 }
                 // menambahkan data hutang_customer
@@ -107,27 +111,25 @@ class laporan_keuangan extends CI_Controller {
                 $piutang_custmer = $this->db->get('piutang_toko')->result_array();
                 foreach ($piutang_custmer as $key) {
                     $data = array(
-                        'laporan' => $laporan,
-                        'bulan' => $this->input->post('bulan'),
-                        'tahun' => $this->input->post('tahun'),
+                        'bulan' => $bulan,
+                        'tahun' => $tahun,
                         'tanggal' => $key['tanggal'],
                         'nama_barang' => $key['nama_perusahaan'],
                         'total' => $key['nominal_hutang'],
                         'kredit' => $key['nominal_pembayaran']
                      );
-                     $tatus_piutang_customer = $this->db->insert('laporan_penjualan', $data);
+                     $status_piutang_toko = $this->db->insert('laporan_penjualan', $data);
                      
                 }
                 // menambahkan data hutang_toko
                 
             
             
-
-                if ($status_penjualan && $status_piutang_customer) {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Laporan gagal ditambahkan</div>');
+                if ($status_penjualan && $status_piutang_customer && $status_piutang_toko) {
+                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan berhasil ditambahkan</div>');
                     redirect('form_laporan');
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan berhasil ditambahkan</div>');
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Laporan gagal ditambahkan</div>');
                     redirect('form_laporan');
                 }
             }
@@ -139,11 +141,10 @@ class laporan_keuangan extends CI_Controller {
 
     public function laporan_penjualan()
     {
-        $laporan = $this->input->post('laporan');
         $bulan = $this->input->post('bulan');
         $tahun = $this->input->post('tahun');
         
-        if ($laporan == null) {
+        if ($bulan == null) {
             $data = array(
                 'laporan_penjualan' => null
                 );
@@ -151,8 +152,7 @@ class laporan_keuangan extends CI_Controller {
             $this->load->view('laporan_keuangan/laporan_penjualan', $data);
             $this->load->view('header/footer');
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan '.$laporan.' '.$bulan.' '.$tahun.'</div>');
-            $this->db->where('laporan', $laporan);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan '.$bulan.' '.$tahun.'</div>');
             $this->db->where('bulan', $bulan);
             $this->db->where('tahun', $tahun);
             

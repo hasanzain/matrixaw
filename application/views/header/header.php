@@ -78,7 +78,6 @@
                         <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?= base_url('order_barang') ?>">Order Barang</a>
                                 <a class="nav-link" href="<?= base_url('barang_masuk') ?>">Barang Masuk</a>
                                 <a class="nav-link" href="<?= base_url('retur_barang') ?>">Retur barang</a>
                                 <a class="nav-link" href="<?= base_url('stok_barang') ?>">Stok Barang</a>

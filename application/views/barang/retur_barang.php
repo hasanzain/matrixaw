@@ -1,45 +1,60 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
-            <h1 class="mt-4">Dashboard</h1>
-            <ol class="breadcrumb mb-4">
-                <li class="breadcrumb-item active">Dashboard</li>
-            </ol>
-            <div class="row">
-                <div class="col-xl-3 col-md-6">
-                    <div class="card bg-primary text-white mb-4">
-                        <div class="card-body">Primary Card</div>
-                        <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Details</a>
-                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card bg-warning text-white mb-4">
-                        <div class="card-body">Warning Card</div>
-                        <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Details</a>
-                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card bg-success text-white mb-4">
-                        <div class="card-body">Success Card</div>
-                        <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Details</a>
-                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-md-6">
-                    <div class="card bg-danger text-white mb-4">
-                        <div class="card-body">Danger Card</div>
-                        <div class="card-footer d-flex align-items-center justify-content-between">
-                            <a class="small text-white stretched-link" href="#">View Details</a>
-                            <div class="small text-white"><i class="fas fa-angle-right"></i></div>
-                        </div>
+            <h3 class="mt-4">Retur Barang</h3>
+            <?= $this->session->flashdata('message')?>
+            <div class="row col-lg-10 py-4">
+                <div class="card border-primary col-lg-10">
+                    <div class="card-body">
+                        <form action="<?= base_url("retur_barang") ?>" method="post">
+                            <div class="form-group">
+                                <label>Nama Barang</label>
+                                <!-- <input type="text" class="form-control" name="nama_barang" id="nama_barang"> -->
+                                <select class="form-control" name="nama_barang" id="nama_barang"
+                                    onchange="getdata2()"></select>
+                                <script>
+                                function getData() {
+                                    $.ajax({
+                                        type: 'POST',
+                                        url: '<?php echo base_url()."autocomplate/getdatabarang" ?>',
+                                        dataType: 'JSON',
+                                        success: function(data) {
+                                            var baris = '';
+
+                                            for (var i = 0; i < data.length; i++) {
+                                                baris += '<option value="' + data[i].nama_barang + '">' +
+                                                    data[i]
+                                                    .nama_barang + '</option>';
+
+                                            }
+                                            $('#nama_barang').html(baris);
+                                        }
+                                    });
+                                }
+                                </script>
+
+                            </div>
+                            <div class="form-group" id='EditForm'>
+                                <label>Kode Barang</label>
+                                <input type="text" class="form-control" name="kode_barang" id="kode_barang">
+                                <?= form_error('kode_barang','<small class="text-danger pl-3">','</small>'); ?>
+                            </div>
+                            <div class="form-group" id='EditForm'>
+                                <label>Harga Satuan</label>
+                                <input type="text" class="form-control" name="harga_satuan" id="harga_satuan">
+                                <?= form_error('harga_satuan','<small class="text-danger pl-3">','</small>'); ?>
+                            </div>
+                            <div class="form-group" id='EditForm'>
+                                <label>Jumlah Barang</label>
+                                <input type="text" class="form-control" name="jumlah_barang">
+                                <?= form_error('jumlah_barang','<small class="text-danger pl-3">','</small>'); ?>
+                            </div>
+                            <div class="form-group">
+                                <label>Keterangan</label>
+                                <textarea class="form-control" name="keterangan" rows="3"></textarea>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Retur">
+                        </form>
                     </div>
                 </div>
             </div>

@@ -99,11 +99,11 @@ class barang extends CI_Controller {
                 'jumlah_stok' => $this->input->post('jumlah_beli')
             );
 
-            $_insert_barang_masuk = $this->db->insert('barang_masuk', $barang_masuk);    
+            $insert_barang_masuk = $this->db->insert('barang_masuk', $barang_masuk);    
             $this->db->where('nama_barang', $nama_barang);
             $update = $this->db->update('stok_barang', $stok_barang);
             $insert = $this->db->insert('mutasi_barang', $data_mutasi);
-            if ($update && $insert && $_insert_barang_masuk) {
+            if ($update && $insert && $insert_barang_masuk) {
                 $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Stok berhasil ditambahkan</div>');
                 redirect('barang_masuk');
             }else{
@@ -136,8 +136,75 @@ class barang extends CI_Controller {
     }
 
     //Update one item
-    public function update( $id = NULL )
+    public function retur_barang()
     {
+
+        
+        $this->form_validation->set_rules('nama_barang', 'nama_barang', 'trim|required');
+        $this->form_validation->set_rules('kode_barang', 'kode_barang', 'trim|required');
+        $this->form_validation->set_rules('jumlah_barang', 'jumlah_barang', 'trim|required|numeric');
+        $this->form_validation->set_rules('harga_satuan', 'harga_satuan', 'trim|required|numeric');
+        
+        if ($this->form_validation->run() == FALSE) {
+
+            $this->load->view('header/header');
+            $this->load->view('barang/retur_barang');
+            $this->load->view('header/footer');
+            
+        } else {
+            $nama_barang = $this->input->post('nama_barang');
+            $kode_barang = $this->input->post('kode_barang');
+            $jumlah_barang = $this->input->post('jumlah_barang');
+            $harga_satuan = $this->input->post('harga_satuan');
+            $keterangan = $this->input->post('keterangan');
+            
+
+            //mencari stok terakhir
+            $this->db->where('nama_barang', $nama_barang);
+            $query = $this->db->get('stok_barang')->result_array();
+            $stok_terakhir = "";
+            foreach ($query as $key) {
+                $stok_terakhir =  $key['jumlah_stok'];
+            }
+            //mencari stok terakhir
+            $update_stok = $stok_terakhir + $jumlah_barang;
+
+
+            $stok_barang = array(
+                'tanggal' => date("Y-m-d"), 
+                'kode_barang' => $this->input->post('kode_barang'), 
+                'harga_satuan' => $this->input->post('net'), 
+                'jumlah_stok' => $update_stok
+            );
+
+            $data_mutasi = array(
+                'tanggal' => date("Y-m-d"), 
+                'nama_barang' => $nama_barang, 
+                'kode_barang' => $kode_barang, 
+                'harga_satuan' => $harga_satuan, 
+                'jumlah_stok' => $jumlah_barang,
+                'keterangan' => $keterangan
+            );
+
+            $this->db->where('nama_barang', $nama_barang);
+            $update = $this->db->update('stok_barang', $stok_barang);
+            $insert = $this->db->insert('mutasi_barang', $data_mutasi);
+
+            if ($update && $insert) {
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Stok berhasil ditambahkan</div>');
+                redirect('retur_barang');
+            }else{
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Stok gagat ditambahkan</div>');
+                redirect('retur_barang');
+            }
+            
+            
+            
+            
+            
+        }
+        
+        
         
     }
 

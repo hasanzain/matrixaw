@@ -44,7 +44,9 @@ class laporan_keuangan extends CI_Controller {
  
     public function form_laporan()
     {
-        $this->form_validation->set_rules('nama_laporan', 'nama_laporan', 'trim|required|is_unique[laporan_penjualan.nama_laporan]');
+        $this->form_validation->set_rules('laporan', 'laporan', 'trim|required');
+        $this->form_validation->set_rules('bulan', 'bulan', 'trim|required');
+        $this->form_validation->set_rules('tahun', 'tahun', 'trim|required');
         $this->form_validation->set_rules('dari', 'dari', 'trim|required');
         $this->form_validation->set_rules('sampai', 'sampai', 'trim|required');
 
@@ -53,7 +55,7 @@ class laporan_keuangan extends CI_Controller {
             $this->load->view('laporan_keuangan/form_laporan');
             $this->load->view('header/footer');
         } else {
-            $nama_laporan = $this->input->post('nama_laporan');
+            $laporan = $this->input->post('laporan');
             $dari = $this->input->post('dari');
             $sampai = $this->input->post('sampai');
             $jumlah = 0;
@@ -66,29 +68,28 @@ class laporan_keuangan extends CI_Controller {
                 $query = $this->db->get('penjualan')->result_array();
                 foreach ($query as $key) {
                     $data = array(
-                        'nama_laporan' => $nama_laporan,
-                        'tanggal' => date("Y-m-d"),
+                        'laporan' => $laporan,
+                        'bulan' => $this->input->post('bulan'),
+                        'tahun' => $this->input->post('tahun'),
+                        'tanggal' => $key['tanggal'],
                         'nama_barang' => $key['nama_barang'],
                         'jumlah_beli' => $key['jumlah_beli'],
                         'harga_satuan' => $key['harga_satuan'],
                         'total' => $key['total']
                      );
-                     $this->db->insert('laporan_penjualan', $data);
+                     $tatus = $this->db->insert('laporan_penjualan', $data);
                      
                     $jumlah += $jumlah;
                 }
                 
             }
-
-            $this->db->where('nama_laporan', $nama_laporan);
-            $cek = $this->db->get('laporan_penjualan')->result_array();
             
 
-            if ($cek != null) {
-                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan berhasil ditambahkan</div>');
+            if ($status) {
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Laporan gagal ditambahkan</div>');
                 redirect('form_laporan');
             }else{
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Laporan gagal ditambahkan</div>');
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan berhasil ditambahkan</div>');
                 redirect('form_laporan');
             }
             
@@ -99,9 +100,11 @@ class laporan_keuangan extends CI_Controller {
 
     public function laporan_penjualan()
     {
-        $cari = $this->input->post('search');
+        $laporan = $this->input->post('laporan');
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
         
-        if($cari == null){
+        if($laporan == null){
             $data = array(
                 'laporan_penjualan' => null
                 );
@@ -110,7 +113,10 @@ class laporan_keuangan extends CI_Controller {
             $this->load->view('header/footer');
         }
         else{
-            $this->db->where('nama_laporan', $cari);
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan '.$laporan.' '.$bulan.' '.$tahun.'</div>');
+            $this->db->where('laporan', $laporan);
+            $this->db->where('bulan', $bulan);
+            $this->db->where('tahun', $tahun);
             
             $data = array(
                 'laporan_penjualan' => $this->db->get('laporan_penjualan')

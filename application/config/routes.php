@@ -73,6 +73,7 @@ $route['delete_inventory'] = 'inventory/delete_inventory';
 $route['update_inventory'] = 'inventory/update_inventory';
 $route['tambah_alarm'] = 'cek/tambah_alarm';
 $route['dashboard'] = 'cek/list_alarm';
+$route['daftar_alarm'] = 'cek/daftar_alarm';
 $route['bayar_cek'] = 'cek/delete';
 $route['report'] = 'report';
 $route['export'] = 'report/export';

@@ -1,7 +1,7 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
-            <h1 class="mt-4">Daftar Hutang</h1>
+            <h1 class="mt-4">Daftar Hutang Toko</h1>
 
             <div class="row">
                 <div class="col-lg-12">

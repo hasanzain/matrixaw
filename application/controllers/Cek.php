@@ -86,6 +86,33 @@ class Cek extends CI_Controller {
         $this->load->view('dashboard', $data);
         $this->load->view('header/footer');
     }
+
+    public function daftar_alarm()
+    {
+       
+        $tanggal = $this->input->post('tanggal');
+
+        
+        if($tanggal == null){
+            $data = array(
+                'cek' => null
+                );
+            $this->load->view('header/header');
+            $this->load->view('cek/daftar_alarm',$data);
+            $this->load->view('header/footer');
+        }
+        else{
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
+            $this->db->where('tanggal_bayar', $tanggal);
+            $data = array(
+            'cek' => $this->db->get('cek'));
+            $this->load->view('header/header');
+            $this->load->view('cek/daftar_alarm',$data);
+            $this->load->view('header/footer');
+            }
+        
+    }
     
     //Update one item
     public function update( $id = NULL )

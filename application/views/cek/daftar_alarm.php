@@ -1,11 +1,11 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
-            <h1 class="mt-4">Daftar Hutang Customer</h1>
+            <h1 class="mt-4">Daftar Taggihan Cek</h1>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <form action="<?= base_url("daftar_hutang_customer") ?>" method="post">
+                    <form action="<?= base_url("daftar_alarm") ?>" method="post">
 
                         <div class=" form-row col-ld-9">
                             <div class="form-group col-md-3">
@@ -29,27 +29,25 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">No</th>
-                                    <th scope="col">Nama Perusahaan</th>
-                                    <th scope="col">Nama Pelanggan</th>
-                                    <th scope="col">Hutang</th>
-                                    <th scope="col">Pembayaran</th>
-                                    <th scope="col">Ket</th>
+                                    <th scope="col">Nama Supplier</th>
+                                    <th scope="col">Jumlah Bayar</th>
+                                    <th scope="col">Tanggal Bayar</th>
+                                    <th scope="col">Keterangan</th>
                                     <th scope="col">#</th>
 
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php
-                                if ($hutang_customer != null) {
+                                if ($cek != null) {
                                     $i=1;
-                                    foreach ($hutang_customer->result_array() as $key) {
+                                    foreach ($cek->result_array() as $key) {
                                         ?>
                                 <tr>
                                     <th scope="row"><?= $i++ ?></th>
-                                    <td><?= $key['nama_perusahaan'] ?></td>
-                                    <td><?= $key['nama_pelanggan'] ?></td>
-                                    <td><?= $key['nominal_hutang'] ?></td>
-                                    <td><?= $key['nominal_pembayaran'] ?></td>
+                                    <td><?= $key['nama_supplier'] ?></td>
+                                    <td><?= $key['jumlah_bayar'] ?></td>
+                                    <td><?= $key['tanggal_bayar'] ?></td>
                                     <td><?= $key['keterangan'] ?></td>
                                     <td>
 

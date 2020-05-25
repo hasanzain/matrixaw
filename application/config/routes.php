@@ -54,7 +54,7 @@ $route['penjualan_harian'] = 'laporan_keuangan/penjualan_harian';
 $route['form_laporan'] = 'laporan_keuangan/form_laporan';
 $route['laporan_penjualan'] = 'laporan_keuangan/laporan_penjualan';
 $route['data_penjualan'] = 'laporan_keuangan/data_penjualan';
-$route['kredit'] = 'laporan_keuangan/kredit';
+$route['pengeluaran'] = 'laporan_keuangan/pengeluaran';
 $route['order_barang'] = 'barang/order_barang';
 $route['barang_masuk'] = 'barang/barang_masuk';
 $route['stok_barang'] = 'barang/stok_barang';
@@ -77,6 +77,9 @@ $route['daftar_alarm'] = 'cek/daftar_alarm';
 $route['bayar_cek'] = 'cek/delete';
 $route['report'] = 'report';
 $route['export'] = 'report/export';
+$route['pengambilan_cat'] = 'mixing/pengambilan_cat';
+$route['penjualan_mixing'] = 'mixing/penjualan_mixing';
+
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

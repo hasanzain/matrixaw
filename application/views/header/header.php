@@ -65,7 +65,7 @@
                                 <a class="nav-link" href="<?= base_url('form_laporan') ?>">Form laporan</a>
                                 <a class="nav-link" href="<?= base_url('laporan_penjualan') ?>">Laporan Penjualan</a>
                                 <a class="nav-link" href="<?= base_url('data_penjualan') ?>">Data Penjualan</a>
-                                <a class="nav-link" href="<?= base_url('kredit') ?>">Pengeluaran</a>
+                                <a class="nav-link" href="<?= base_url('pengeluaran') ?>">Pengeluaran</a>
                             </nav>
                         </div>
 
@@ -99,8 +99,8 @@
                         <div class="collapse" id="collapseLayoutsx" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="<?= base_url('barang_masuk') ?>">Pengambilan</a>
-                                <a class="nav-link" href="<?= base_url('retur_barang') ?>">Penjualan</a>
+                                <a class="nav-link" href="<?= base_url('pengambilan_cat') ?>">Pengambilan</a>
+                                <a class="nav-link" href="<?= base_url('penjualan_mixing') ?>">Penjualan</a>
                                 Masuk</a>
 
                             </nav>

@@ -87,7 +87,6 @@ class barang extends CI_Controller {
             $stok_barang = array(
                 'tanggal' => date("Y-m-d"), 
                 'kode_barang' => $this->input->post('kode_barang'), 
-                'harga_satuan' => $this->input->post('net'), 
                 'jumlah_stok' => $update_stok
             );
 
@@ -95,8 +94,8 @@ class barang extends CI_Controller {
                 'tanggal' => date("Y-m-d"), 
                 'nama_barang' => $nama_barang, 
                 'kode_barang' => $this->input->post('kode_barang'), 
-                'harga_satuan' => $this->input->post('net'), 
-                'jumlah_stok' => $this->input->post('jumlah_beli')
+                'harga_beli' => $this->input->post('net'), 
+                'jumlah_masuk' => $this->input->post('jumlah_beli')
             );
 
             $insert_barang_masuk = $this->db->insert('barang_masuk', $barang_masuk);    

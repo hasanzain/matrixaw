@@ -29,7 +29,7 @@
                                     <?= form_error('nama_laporan','<small class="text-danger pl-3">','</small>'); ?>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label>Nama Laporan </label>
+                                    <label>Tahun </label>
                                     <select class="form-control" name="tahun">
                                         <option value="2020">2020</option>
                                         <option value="2021">2021</option>

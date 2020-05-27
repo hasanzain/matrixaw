@@ -1,9 +1,33 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
-            <h3 class="mt-4">Stok Barang</h3>
+            <h3 class="mt-4">Mutasi Barang</h3>
             <div class="row">
                 <div class="col-lg-12">
+                    <form action="<?= base_url("mutasi_barang") ?>" method="post">
+
+                        <div class=" form-row col-ld-9">
+                            <div class="form-group col-md-6">
+                                <div class="input-group">
+                                    <select class="form-control" name="nama_barang">
+                                        <option value="">Nama Barang</option>
+                                        <?php
+                                    foreach ($barang->result_array() as $key) {
+                                        ?>
+                                        <option value="<?= $key['nama_barang'] ?>"><?= $key['nama_barang'] ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                    </select>
+                                    <input class="form-control" type="date" name="tanggal">
+                                    <div class="input-group-append">
+                                        <input class="btn btn-outline-primary col-lg-10" type="submit" value="cari">
+                                        <button onclick="window.print()" class="btn btn-warning">Print</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
                     <div class="card mb-4">
 
@@ -15,7 +39,8 @@
                                     <th scope="col">Nama barang</th>
                                     <th scope="col">Kode barang</th>
                                     <th scope="col">Harga Satuan</th>
-                                    <th scope="col">Jumlah Stok</th>
+                                    <th scope="col">Barang Masuk</th>
+                                    <th scope="col">Barang Keluar</th>
 
                                 </tr>
                             </thead>
@@ -30,7 +55,8 @@
                                     <td><?= $key['nama_barang'] ?></td>
                                     <td><?= $key['kode_barang'] ?></td>
                                     <td><?= $key['harga_satuan'] ?></td>
-                                    <td><?= $key['jumlah_stok'] ?></td>
+                                    <td><?= $key['jumlah_masuk'] ?></td>
+                                    <td><?= $key['jumlah_keluar'] ?></td>
 
                                 </tr>
                                 <?php

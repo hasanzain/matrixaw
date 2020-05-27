@@ -8,8 +8,10 @@
                     <form action="<?= base_url("daftar_hutang_customer") ?>" method="post">
 
                         <div class=" form-row col-ld-9">
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-6">
                                 <div class="input-group">
+                                    <input class="form-control" type="text" name="nama_perusahaan"
+                                        placeholder="Nama Perusahaan">
                                     <input class="form-control" type="date" name="tanggal">
                                     <div class="input-group-append">
                                         <input class="btn btn-outline-primary col-lg-10" type="submit" value="cari">
@@ -17,8 +19,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </form>
 
@@ -29,6 +29,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col">No</th>
+                                    <th scope="col">Tanggal</th>
                                     <th scope="col">Nama Perusahaan</th>
                                     <th scope="col">Nama Pelanggan</th>
                                     <th scope="col">Hutang</th>
@@ -40,12 +41,13 @@
                             </thead>
                             <tbody>
                                 <?php
-                                if ($hutang_customer != null) {
+
                                     $i=1;
                                     foreach ($hutang_customer->result_array() as $key) {
                                         ?>
                                 <tr>
                                     <th scope="row"><?= $i++ ?></th>
+                                    <td><?= $key['tanggal'] ?></td>
                                     <td><?= $key['nama_perusahaan'] ?></td>
                                     <td><?= $key['nama_pelanggan'] ?></td>
                                     <td><?= $key['nominal_hutang'] ?></td>
@@ -60,7 +62,6 @@
                                 </tr>
                                 <?php
                                     }
-                                }
                         ?>
                             </tbody>
                         </table>

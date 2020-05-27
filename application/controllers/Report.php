@@ -20,39 +20,80 @@ class Report extends CI_Controller {
 
     public function export()
     {
-        $tabel = $this->input->post('nama_tabel');
-        $dari = $this->input->post('dari');
-        $sampai = $this->input->post('sampai');
-        $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
-        // return $this->db->get($tabel);
-        $hasil = $this->db->get($tabel)->result_array();
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        $this->db->where('bulan', $bulan);
+        $this->db->where('tahun', $tahun);
+        
+        $hasil = $this->db->get('laporan_penjualan')->result_array();
 
 
         $spreadsheet = new Spreadsheet;
 
         $spreadsheet->setActiveSheetIndex(0)
-                    ->setCellValue('A1', 'No')
-                    ->setCellValue('B1', 'Tanggal')
-                    ->setCellValue('C1', 'Nama barang')
-                    ->setCellValue('D1', 'Jumlah beli')
-                    ->setCellValue('E1', 'Harga satuan')
-                    ->setCellValue('F1', 'Total');
+                    ->setCellValue('A1', 'LAPORAN KEUANGAN BULANAN')
+                    ->setCellValue('A2', 'TOKO MATRIX AW');
 
-        $kolom = 2;
+        $spreadsheet->setActiveSheetIndex(0)
+                    ->setCellValue('A5', 'No')
+                    ->setCellValue('B5', 'Tanggal')
+                    ->setCellValue('C5', 'Tahun')
+                    ->setCellValue('D5', 'Nama Barang')
+                    ->setCellValue('E5', 'Jumlah Beli')
+                    ->setCellValue('F5', 'Harga Satuan')
+                    ->setCellValue('G5', 'Total')
+                    ->setCellValue('H5', 'Pengeluaran');
+
+        $kolom = 6;
         $nomor = 1;
+        $pemasukan = 0;
+        $pengeluaran = 0;
+        $akhir = 0;
 
         foreach ($hasil as $key) {
             $spreadsheet->setActiveSheetIndex(0)
                            ->setCellValue('A' . $kolom, $nomor)
                            ->setCellValue('B' . $kolom, $key['tanggal'])
-                           ->setCellValue('C' . $kolom, $key['nama_barang'])
-                           ->setCellValue('D' . $kolom, $key['jumlah_beli'])
-                           ->setCellValue('E' . $kolom, $key['harga_satuan'])
-                           ->setCellValue('F' . $kolom, $key['total']);
+                           ->setCellValue('C' . $kolom, $key['tahun'])
+                           ->setCellValue('D' . $kolom, $key['nama_barang'])
+                           ->setCellValue('E' . $kolom, $key['jumlah_beli'])
+                           ->setCellValue('F' . $kolom, $key['harga_satuan'])
+                           ->setCellValue('G' . $kolom, $key['total'])
+                           ->setCellValue('H' . $kolom, $key['kredit']);
 
             $kolom++;
             $nomor++;
+            $pemasukan += $key['total'];
+            $pengeluaran += $key['kredit'];
+            $akhir = $pemasukan - $pengeluaran;
         }
+
+        $spreadsheet->setActiveSheetIndex(0)
+                           ->setCellValue('A' . $kolom, 'JUMLAH')
+                           ->setCellValue('G' . $kolom, $pemasukan)
+                           ->setCellValue('H' . $kolom, $pengeluaran)
+                           ->setCellValue('I' . $kolom, $akhir);
+
+        // CUSTOM CELL
+        $spreadsheet->getActiveSheet()->mergeCells('A1:H1');
+        $spreadsheet->getActiveSheet()->mergeCells('A2:H2');
+        $spreadsheet->getActiveSheet()->getStyle('A1:H2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        
+        
+
+
+        $spreadsheet->getActiveSheet()->mergeCells('A' . $kolom . ':F' .$kolom);
+        
+        
+        $spreadsheet->getActiveSheet()->getColumnDimension('A')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('B')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('C')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('D')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('E')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('F')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('G')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('H')->setAutoSize(true);
+        $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
 
         $writer = new Xlsx($spreadsheet);
 

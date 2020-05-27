@@ -91,26 +91,29 @@ class piutang_toko extends CI_Controller {
     public function daftar_hutang()
     {
         $tanggal = $this->input->post('tanggal');
+        $nama_perusahaan = $this->input->post('nama_perusahaan');
+
+        $this->db->order_by('nama_barang', 'asc');
+        
+        $barang = $this->db->get('barang');
+        if ($tanggal != null) {
+            $this->db->where('tanggal', $tanggal);
+        }
+        
+        if ($nama_perusahaan != null) {
+            $this->db->where('nama_perusahaan', $nama_perusahaan);
+        }
+        
+        $this->db->order_by('id', 'desc');
 
         
-        if($tanggal == null){
-            $data = array(
-                'hutang_toko' => null
-                );
-            $this->load->view('header/header');
-            $this->load->view('piutang_toko/daftar_hutang',$data);
-            $this->load->view('header/footer');
-        }
-        else{
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
-            $this->db->where('tanggal', $tanggal);
-            $data = array(
-            'hutang_toko' => $this->db->get('piutang_toko'));
-            $this->load->view('header/header');
-            $this->load->view('piutang_toko/daftar_hutang',$data);
-            $this->load->view('header/footer');
-            }
+        $data = array(
+            'hutang_toko' => $this->db->get('piutang_toko'),
+            'barang' => $barang
+            );
+        $this->load->view('header/header');
+        $this->load->view('piutang_toko/daftar_hutang',$data);
+        $this->load->view('header/footer');
     }
 
     //Delete one item

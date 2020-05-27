@@ -15,8 +15,9 @@
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-light bg-primary">
-        <a class="navbar-brand" href="index.html">Toko Matrix AW</a><button
-            class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
+        <a class="navbar-brand  text-white">
+            <h3>Matrix AW</h3>
+        </a><button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
                 class="fas fa-bars"></i></button><!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
             <!-- <div class="input-group">
@@ -43,15 +44,16 @@
 
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark bg-secondary" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu ">
+                    <div class="nav text-white">
                         <div class="sb-sidenav-menu-heading">Core</div>
-                        <a class="nav-link" href="<?= base_url('dashboard') ?>">
+                        <a class="nav-link collapsed" href="<?= base_url('dashboard') ?>">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                             Dashboard
                         </a>
                         <div class="sb-sidenav-menu-heading">Features</div>
+
                         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts"
                             aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -70,7 +72,7 @@
                         </div>
 
 
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts1"
+                        <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayouts1"
                             aria-expanded="false" aria-controls="collapseLayouts1">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Barang
@@ -90,7 +92,7 @@
 
 
                         </div>
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayoutsx"
+                        <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayoutsx"
                             aria-expanded="false" aria-controls="collapseLayoutsx">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Mixing
@@ -101,12 +103,10 @@
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="<?= base_url('pengambilan_cat') ?>">Pengambilan</a>
                                 <a class="nav-link" href="<?= base_url('penjualan_mixing') ?>">Penjualan</a>
-                                Masuk</a>
-
                             </nav>
                         </div>
 
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts2"
+                        <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayouts2"
                             aria-expanded="false" aria-controls="collapseLayouts2">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Hutang Customer
@@ -123,7 +123,7 @@
                         </div>
 
 
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts3"
+                        <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayouts3"
                             aria-expanded="false" aria-controls="collapseLayouts3">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Hutang Toko
@@ -139,7 +139,7 @@
                         </div>
 
 
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts5"
+                        <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayouts5"
                             aria-expanded="false" aria-controls="collapseLayouts5">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Inventory
@@ -154,7 +154,7 @@
                         </div>
 
 
-                        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts4"
+                        <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayouts4"
                             aria-expanded="false" aria-controls="collapseLayouts4">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Cek
@@ -164,7 +164,20 @@
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" href="<?= base_url('tambah_alarm') ?>">Tambah Alarm</a>
-                                <a class="nav-link" href="<?= base_url('daftar_alarm') ?>">Daftar Inventory</a>
+                                <a class="nav-link" href="<?= base_url('daftar_alarm') ?>">Daftar Alarm</a>
+                            </nav>
+                        </div>
+
+                        <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayoutsz"
+                            aria-expanded="false" aria-controls="collapseLayoutsz">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Report
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayoutsz" aria-labelledby="headingOne"
+                            data-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="<?= base_url('report') ?>">Export Excel</a>
                             </nav>
                         </div>
 
@@ -173,9 +186,6 @@
                     </div>
 
                 </div>
-                <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
-                </div>
+
             </nav>
         </div>

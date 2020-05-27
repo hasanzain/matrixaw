@@ -9,8 +9,10 @@
                     <form action="<?= base_url("data_penjualan") ?>" method="post">
 
                         <div class=" form-row col-ld-9">
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-6">
                                 <div class="input-group">
+                                    <input class="form-control" type="text" name="nama_barang"
+                                        placeholder="nama barang">
                                     <input class="form-control" type="date" name="tanggal">
                                     <div class="input-group-append">
                                         <input class="btn btn-outline-primary col-lg-10" type="submit" value="cari">

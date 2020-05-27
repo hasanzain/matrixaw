@@ -24,10 +24,26 @@ class barang extends CI_Controller {
 
     public function mutasi_barang()
     {
+        $tanggal = $this->input->post('tanggal');
+        $nama_barang = $this->input->post('nama_barang');
+
+        $this->db->order_by('nama_barang', 'asc');
+        
+        $barang = $this->db->get('barang');
+        if ($tanggal != null) {
+            $this->db->where('tanggal', $tanggal);
+        }
+        
+        if ($nama_barang != null) {
+            $this->db->where('nama_barang', $nama_barang);
+        }
+        
         $this->db->order_by('id', 'desc');
         
         $data = array(
-            'stok_barang' => $this->db->get('mutasi_barang')
+            'stok_barang' => $this->db->get('mutasi_barang'),
+            'barang' => $barang,
+            
         );
         $this->load->view('header/header');    
         $this->load->view('barang/mutasi_barang',$data);

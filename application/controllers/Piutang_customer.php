@@ -92,26 +92,42 @@ class piutang_customer extends CI_Controller {
     {
 
         $tanggal = $this->input->post('tanggal');
+        $nama_perusahaan = $this->input->post('nama_perusahaan');
+
+        $this->db->order_by('nama_barang', 'asc');
+        
+        $barang = $this->db->get('barang');
+        if ($tanggal != null) {
+            $this->db->where('tanggal', $tanggal);
+        }
+        
+        if ($nama_perusahaan != null) {
+            $this->db->where('nama_perusahaan', $nama_perusahaan);
+        }
+        
+        $this->db->order_by('id', 'desc');
 
         
-        if($tanggal == null){
-            $data = array(
-                'hutang_customer' => null
-                );
-            $this->load->view('header/header');
-            $this->load->view('piutang_customer/daftar_hutang',$data);
-            $this->load->view('header/footer');
-        }
-        else{
+        $data = array(
+            'hutang_customer' => $this->db->get('piutang_customer'),
+            'barang' => $barang
+            );
+        $this->load->view('header/header');
+        $this->load->view('piutang_customer/daftar_hutang',$data);
+        $this->load->view('header/footer');
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
-            $this->db->where('tanggal', $tanggal);
-            $data = array(
-            'hutang_customer' => $this->db->get('piutang_customer'));
-            $this->load->view('header/header');
-            $this->load->view('piutang_customer/daftar_hutang',$data);
-            $this->load->view('header/footer');
-            }
+        // if($tanggal == null){
+        // }
+        // else{
+
+        //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
+        //     $this->db->where('tanggal', $tanggal);
+        //     $data = array(
+        //     'hutang_customer' => $this->db->get('piutang_customer'));
+        //     $this->load->view('header/header');
+        //     $this->load->view('piutang_customer/daftar_hutang',$data);
+        //     $this->load->view('header/footer');
+        //     }
         
         
     }

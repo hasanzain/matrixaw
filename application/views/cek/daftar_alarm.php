@@ -1,15 +1,17 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
-            <h1 class="mt-4">Daftar Taggihan Cek</h1>
+            <h1 class="mt-4">Daftar Tagihan Cek</h1>
 
             <div class="row">
                 <div class="col-lg-12">
                     <form action="<?= base_url("daftar_alarm") ?>" method="post">
 
                         <div class=" form-row col-ld-9">
-                            <div class="form-group col-md-3">
+                            <div class="form-group col-md-6">
                                 <div class="input-group">
+                                    <input class="form-control" type="text" name="nama_supplier"
+                                        placeholder="Nama Supplier">
                                     <input class="form-control" type="date" name="tanggal">
                                     <div class="input-group-append">
                                         <input class="btn btn-outline-primary col-lg-10" type="submit" value="cari">
@@ -17,8 +19,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                         </div>
                     </form>
 

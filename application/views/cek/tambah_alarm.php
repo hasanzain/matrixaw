@@ -10,7 +10,16 @@
                         <form action="<?= base_url('tambah_alarm') ?>" method="POST">
                             <div class="form-group">
                                 <label>Nama Supplier</label>
-                                <input type="text" class="form-control" name="nama_supplier">
+                                <select class="form-control" name="nama_barang">
+                                    <option value="">Nama Supplier</option>
+                                    <?php
+                                    foreach ($supplier->result_array() as $key) {
+                                        ?>
+                                    <option value="<?= $key['nama_supplier'] ?>"><?= $key['nama_supplier'] ?></option>
+                                    <?php
+                                    }
+                                    ?>
+                                </select>
                                 <?= form_error('nama_supplier','<small class="text-danger pl-3">','</small>'); ?>
                             </div>
 

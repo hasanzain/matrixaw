@@ -27,9 +27,16 @@ class Cek extends CI_Controller {
         $this->form_validation->set_rules('jumlah_bayar', 'jumlah_bayar', 'trim|required|numeric');
         $this->form_validation->set_rules('tanggal_bayar', 'tanggal_bayar', 'trim|required');
         
-        if ($this->form_validation->run() == FALSE) {
+        if ($this->form_validation->run() == FALSE){ 
+
+            $this->db->order_by('nama_supplier', 'asc');
+            $data = array(
+            'supplier' => $this->db->get('supplier')
+            
+         );
+
             $this->load->view('header/header');
-            $this->load->view('cek/tambah_alarm');
+            $this->load->view('cek/tambah_alarm',$data);
             $this->load->view('header/footer');
         } else {
             $data = array(
@@ -91,26 +98,29 @@ class Cek extends CI_Controller {
     {
        
         $tanggal = $this->input->post('tanggal');
+        $nama_supplier = $this->input->post('nama_supplier');
+
+        $this->db->order_by('nama_supplier', 'asc');
+        
+        $supplier = $this->db->get('supplier');
+        if ($tanggal != null) {
+            $this->db->where('tanggal_bayar', $tanggal);
+        }
+        
+        if ($nama_supplier != null) {
+            $this->db->where('nama_supplier', $nama_supplier);
+        }
+        
+        $this->db->order_by('id', 'desc');
 
         
-        if($tanggal == null){
-            $data = array(
-                'cek' => null
-                );
-            $this->load->view('header/header');
-            $this->load->view('cek/daftar_alarm',$data);
-            $this->load->view('header/footer');
-        }
-        else{
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
-            $this->db->where('tanggal_bayar', $tanggal);
-            $data = array(
-            'cek' => $this->db->get('cek'));
-            $this->load->view('header/header');
-            $this->load->view('cek/daftar_alarm',$data);
-            $this->load->view('header/footer');
-            }
+        $data = array(
+            'cek' => $this->db->get('cek'),
+            'supplier' => $supplier
+            );
+        $this->load->view('header/header');
+        $this->load->view('cek/daftar_alarm',$data);
+        $this->load->view('header/footer');
         
     }
     

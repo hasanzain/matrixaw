@@ -10,7 +10,7 @@
                         <form action="<?= base_url('tambah_alarm') ?>" method="POST">
                             <div class="form-group">
                                 <label>Nama Supplier</label>
-                                <select class="form-control" name="nama_barang">
+                                <select class="form-control" name="nama_supplier">
                                     <option value="">Nama Supplier</option>
                                     <?php
                                     foreach ($supplier->result_array() as $key) {

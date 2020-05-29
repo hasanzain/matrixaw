@@ -132,10 +132,23 @@ class barang extends CI_Controller {
 
     public function daftar_barang_masuk()
     {
-        $this->db->order_by('id', 'desc');
+        $this->db->order_by('nama_supplier', 'asc');
+        $supplier = $this->db->get('supplier');
+        $nama_supplier = $this->input->post('nama_supplier');
+        $tanggal = $this->input->post('tanggal');
         
+        if ($nama_supplier != null) {
+            $this->db->where('nama_supplier', $nama_supplier);
+
+        }
+        if ($tanggal != null) {
+            $this->db->where('tanggal', $tanggal);
+        }
+        $this->db->order_by('id', 'desc');
         $data = array(
-            'barang_masuk' => $this->db->get('barang_masuk') );
+            'barang_masuk' => $this->db->get('barang_masuk'),
+            'supplier' => $supplier
+         );
         
         $this->load->view('header/header');    
         $this->load->view('barang/daftar_barang_masuk',$data);
@@ -197,7 +210,7 @@ class barang extends CI_Controller {
                 'nama_barang' => $nama_barang, 
                 'kode_barang' => $kode_barang, 
                 'harga_satuan' => $harga_satuan, 
-                'jumlah_stok' => $jumlah_barang,
+                'jumlah_masuk' => $jumlah_barang,
                 'keterangan' => $keterangan
             );
 

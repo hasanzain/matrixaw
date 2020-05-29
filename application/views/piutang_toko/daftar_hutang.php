@@ -42,6 +42,9 @@
                             <tbody>
                                 <?php
                                     $i=1;
+                                    $hutang = 0;
+                                    $pembayaran = 0;
+                                    $jumlah = 0;
                                     foreach ($hutang_toko->result_array() as $key) {
                                         ?>
                                 <tr>
@@ -60,8 +63,17 @@
                                     </td>
                                 </tr>
                                 <?php
+                                $hutang += $key['nominal_hutang'];
+                                $pembayaran += $key['nominal_pembayaran'];
                                     }
+                                    $jumlah = $hutang - $pembayaran;
                         ?>
+                                <tr>
+                                    <td colspan=5>Sisa Hutang</td>
+                                    <td><?= $jumlah ?></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

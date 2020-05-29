@@ -6,6 +6,18 @@
             <div class="row">
                 <div class="col-lg-12">
 
+
+                    <div class=" form-row col-ld-9">
+                        <div class="form-group col-md-6">
+                            <div>
+                                <button onclick="window.print()" class="btn btn-warning ml-3">Print</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
                     <div class="card mb-4">
 
                         <table class="table table-hover">

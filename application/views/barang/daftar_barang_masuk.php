@@ -5,6 +5,33 @@
 
             <div class="row">
                 <div class="col-lg-12">
+                    <form action="<?= base_url("daftar_alarm") ?>" method="post">
+
+                        <div class=" form-row col-ld-9">
+                            <div class="form-group col-md-6">
+                                <div class="input-group">
+                                    <select class="form-control" name="nama_supplier">
+                                        <option value="">Nama Supplier</option>
+                                        <?php
+                                    foreach ($supplier->result_array() as $key) {
+                                        ?>
+                                        <option value="<?= $key['nama_supplier'] ?>"><?= $key['nama_supplier'] ?>
+                                        </option>
+                                        <?php
+                                    }
+                                    ?>
+                                    </select>
+                                    <input class="form-control" type="date" name="tanggal">
+                                    <div class="input-group-append">
+                                        <input class="btn btn-outline-primary col-lg-12" type="submit" value="cari">
+                                    </div>
+                                    <div>
+                                        <button onclick="window.print()" class="btn btn-warning ml-3">Print</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
 
                     <div class="card mb-4">
 

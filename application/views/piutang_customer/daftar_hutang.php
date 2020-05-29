@@ -14,8 +14,10 @@
                                         placeholder="Nama Perusahaan">
                                     <input class="form-control" type="date" name="tanggal">
                                     <div class="input-group-append">
-                                        <input class="btn btn-outline-primary col-lg-10" type="submit" value="cari">
-                                        <button onclick="window.print()" class="btn btn-warning">Print</button>
+                                        <input class="btn btn-outline-primary col-lg-12" type="submit" value="cari">
+                                    </div>
+                                    <div>
+                                        <button onclick="window.print()" class="btn btn-warning ml-3">Print</button>
                                     </div>
                                 </div>
                             </div>
@@ -43,6 +45,9 @@
                                 <?php
 
                                     $i=1;
+                                    $hutang = 0;
+                                    $pembayaran = 0;
+                                    $jumlah = 0;
                                     foreach ($hutang_customer->result_array() as $key) {
                                         ?>
                                 <tr>
@@ -61,8 +66,17 @@
                                     </td>
                                 </tr>
                                 <?php
+                                $hutang += $key['nominal_hutang'];
+                                $pembayaran += $key['nominal_pembayaran'];
                                     }
+                                    $jumlah = $hutang - $pembayaran;
                         ?>
+                                <tr>
+                                    <td colspan=5>Sisa Hutang</td>
+                                    <td><?= $jumlah ?></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

@@ -29,6 +29,7 @@ class piutang_toko extends CI_Controller {
             
         } else {
             $data = array(
+                'tanggal' => date("Y-m-d"),
                 'nama_perusahaan' => $this->input->post('nama_perusahaan'),
                 'nama_pelanggan' => $this->input->post('nama_pelanggan'),
                 'nominal_hutang' => $this->input->post('nominal'),
@@ -67,6 +68,7 @@ class piutang_toko extends CI_Controller {
             
         } else {
             $data = array(
+                'tanggal' => date("Y-m-d"),
                 'nama_perusahaan' => $this->input->post('nama_perusahaan'),
                 'nama_pelanggan' => $this->input->post('nama_pelanggan'),
                 'nominal_hutang' => 0,

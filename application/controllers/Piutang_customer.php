@@ -2,7 +2,7 @@
 
 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+date_default_timezone_set("Asia/Jakarta");
 class piutang_customer extends CI_Controller {
 
     public function __construct()
@@ -29,6 +29,7 @@ class piutang_customer extends CI_Controller {
             
         } else {
             $data = array(
+                'tanggal' => date("Y-m-d"),
                 'nama_perusahaan' => $this->input->post('nama_perusahaan'),
                 'nama_pelanggan' => $this->input->post('nama_pelanggan'),
                 'nominal_hutang' => $this->input->post('nominal'),
@@ -67,6 +68,7 @@ class piutang_customer extends CI_Controller {
             
         } else {
             $data = array(
+                'tanggal' => date("Y-m-d"),
                 'nama_perusahaan' => $this->input->post('nama_perusahaan'),
                 'nama_pelanggan' => $this->input->post('nama_pelanggan'),
                 'nominal_hutang' => 0,
@@ -116,18 +118,7 @@ class piutang_customer extends CI_Controller {
         $this->load->view('piutang_customer/daftar_hutang',$data);
         $this->load->view('header/footer');
 
-        // if($tanggal == null){
-        // }
-        // else{
-
-        //     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
-        //     $this->db->where('tanggal', $tanggal);
-        //     $data = array(
-        //     'hutang_customer' => $this->db->get('piutang_customer'));
-        //     $this->load->view('header/header');
-        //     $this->load->view('piutang_customer/daftar_hutang',$data);
-        //     $this->load->view('header/footer');
-        //     }
+       
         
         
     }

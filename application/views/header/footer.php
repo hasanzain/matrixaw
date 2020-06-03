@@ -20,7 +20,6 @@
 <script>
 getData();
 </script>
-</body>
 <script>
 function hitung() {
     //document.getElementById("kode_barang").value = ;
@@ -69,5 +68,7 @@ function getdata2() {
 
 }
 </script>
+</body>
+
 
 </html>

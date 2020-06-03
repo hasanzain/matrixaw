@@ -8,20 +8,25 @@ class Cek extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        //Load Dependencies
+        if ($this->session->userdata('role')=='') {
+            redirect('auth');
+        }
 
     }
 
-    // List all your items
-    public function index()
-    {
+    // // List all your items
+    // public function index()
+    // {
         
         
-    }
+    // }
 
     // Add a new item
     public function tambah_alarm()
     {
+        if ($this->session->userdata('role')!='admin') {
+            redirect('auth/notadmin');
+        }
 
         $this->form_validation->set_rules('nama_supplier', 'nama_supplier', 'trim|required');
         $this->form_validation->set_rules('jumlah_bayar', 'jumlah_bayar', 'trim|required|numeric');

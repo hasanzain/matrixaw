@@ -8,13 +8,18 @@ class piutang_toko extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        //Load Dependencies
+        if ($this->session->userdata('role')=='') {
+            redirect('auth');
+        }
 
     }
 
     // List all your items
     public function hutang()
     {
+        if ($this->session->userdata('role')!='admin') {
+            redirect('auth/notadmin');
+        }
 
         $this->form_validation->set_rules('nama_perusahaan', 'nama_perusahaan', 'trim|required');
         $this->form_validation->set_rules('nama_pelanggan', 'nama_pelanggan', 'trim|required');
@@ -55,6 +60,10 @@ class piutang_toko extends CI_Controller {
     // Add a new item
     public function pembayaran()
     {
+        if ($this->session->userdata('role')!='admin') {
+            redirect('auth/notadmin');
+        }
+        
         $this->form_validation->set_rules('nama_perusahaan', 'nama_perusahaan', 'trim|required');
         $this->form_validation->set_rules('nama_pelanggan', 'nama_pelanggan', 'trim|required');
         $this->form_validation->set_rules('nominal', 'nominal', 'trim|required|numeric');

@@ -34,7 +34,7 @@
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Logout</a>
+                    <a class="dropdown-item" href="<?= base_url('auth/logout') ?>">Logout</a>
                 </div>
             </li>
         </ul>
@@ -61,11 +61,17 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
+                                <?php
+                                    if ($this->session->userdata('role')=='admin') {
+                                        ?>
                                 <a class="nav-link" href="<?= base_url('penjualan_harian') ?>">Penjualan Harian</a>
                                 <a class="nav-link" href="<?= base_url('form_laporan') ?>">Form laporan</a>
+                                <a class="nav-link" href="<?= base_url('pengeluaran') ?>">Pengeluaran</a>
+                                <?php
+                                    }
+                                    ?>
                                 <a class="nav-link" href="<?= base_url('laporan_penjualan') ?>">Laporan Penjualan</a>
                                 <a class="nav-link" href="<?= base_url('data_penjualan') ?>">Data Penjualan</a>
-                                <a class="nav-link" href="<?= base_url('pengeluaran') ?>">Pengeluaran</a>
                             </nav>
                         </div>
 
@@ -79,8 +85,14 @@
                         <div class="collapse" id="collapseLayouts1" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
+                                <?php
+                                    if ($this->session->userdata('role')=='admin') {
+                                        ?>
                                 <a class="nav-link" href="<?= base_url('barang_masuk') ?>">Barang Masuk</a>
                                 <a class="nav-link" href="<?= base_url('retur_barang') ?>">Retur barang</a>
+                                <?php
+                                    }
+                                    ?>
                                 <a class="nav-link" href="<?= base_url('stok_barang') ?>">Stok Barang</a>
                                 <a class="nav-link" href="<?= base_url('mutasi_barang') ?>">Mutasi Barang</a>
                                 <a class="nav-link" href="<?= base_url('daftar_barang_masuk') ?>">Daftar Barang
@@ -90,6 +102,9 @@
 
 
                         </div>
+                        <?php
+                            if ($this->session->userdata('role')=='admin') {
+                            ?>
                         <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayoutsx"
                             aria-expanded="false" aria-controls="collapseLayoutsx">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -103,6 +118,9 @@
                                 <a class="nav-link" href="<?= base_url('penjualan_mixing') ?>">Penjualan</a>
                             </nav>
                         </div>
+                        <?php
+                        }
+                        ?>
 
                         <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayouts2"
                             aria-expanded="false" aria-controls="collapseLayouts2">
@@ -113,8 +131,14 @@
                         <div class="collapse" id="collapseLayouts2" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
+                                <?php
+                                    if ($this->session->userdata('role')=='admin') {
+                                ?>
                                 <a class="nav-link" href="<?= base_url('hutang_customer') ?>">Hutang</a>
                                 <a class="nav-link" href="<?= base_url('pembayaran_customer') ?>">Pembayaran</a>
+                                <?php
+                                    }
+                                    ?>
                                 <a class="nav-link" href="<?= base_url('daftar_hutang_customer') ?>">Daftar Hutang</a>
 
                             </nav>
@@ -130,13 +154,21 @@
                         <div class="collapse" id="collapseLayouts3" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
+                                <?php
+                                    if ($this->session->userdata('role')=='admin') {
+                                ?>
                                 <a class="nav-link" href="<?= base_url('hutang_toko') ?>">Hutang</a>
                                 <a class="nav-link" href="<?= base_url('pembayaran_toko') ?>">Pembayaran</a>
+                                <?php
+                                    }
+                                    ?>
                                 <a class="nav-link" href="<?= base_url('daftar_hutang_toko') ?>">Daftar Hutang</a>
                             </nav>
                         </div>
 
-
+                        <?php
+                            if ($this->session->userdata('role')=='admin') {
+                        ?>
                         <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayouts5"
                             aria-expanded="false" aria-controls="collapseLayouts5">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -150,7 +182,9 @@
                                 <a class="nav-link" href="<?= base_url('daftar_inventory') ?>">Daftar Inventory</a>
                             </nav>
                         </div>
-
+                        <?php
+                        }
+                        ?>
 
                         <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayouts4"
                             aria-expanded="false" aria-controls="collapseLayouts4">
@@ -161,7 +195,13 @@
                         <div class="collapse" id="collapseLayouts4" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
+                                <?php
+                                    if ($this->session->userdata('role')=='admin') {
+                                        ?>
                                 <a class="nav-link" href="<?= base_url('tambah_alarm') ?>">Tambah Alarm</a>
+                                <?php
+                                    }
+                                    ?>
                                 <a class="nav-link" href="<?= base_url('daftar_alarm') ?>">Daftar Alarm</a>
                             </nav>
                         </div>

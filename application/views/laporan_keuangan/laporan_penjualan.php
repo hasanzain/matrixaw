@@ -36,6 +36,9 @@
                                     <div class="input-group-append">
                                         <input class="btn btn-outline-primary" type="submit" value="cari">
                                     </div>
+                                    <div>
+                                        <button onclick="window.print()" class="btn btn-warning ml-3">Print</button>
+                                    </div>
                                 </div>
                             </div>
 

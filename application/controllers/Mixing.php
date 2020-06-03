@@ -3,6 +3,14 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set("Asia/Jakarta");
 class mixing extends CI_Controller {
+    public function __construct()
+    {
+        parent::__construct();
+        if ($this->session->userdata('role')=='') {
+            redirect('auth');
+        }
+
+    }
 
     public function pengambilan_cat()
     {

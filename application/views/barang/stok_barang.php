@@ -4,6 +4,15 @@
             <h3 class="mt-4">Stok Barang</h3>
             <div class="row">
                 <div class="col-lg-12">
+                    <div class=" form-row col-ld-9">
+                        <div class="form-group col-md-6">
+                            <div class="input-group">
+                                <div>
+                                    <button onclick="window.print()" class="btn btn-warning ml-3">Print</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="card mb-4">
 

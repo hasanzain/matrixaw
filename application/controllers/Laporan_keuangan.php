@@ -2,10 +2,18 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 date_default_timezone_set("Asia/Jakarta");
 class laporan_keuangan extends CI_Controller {
+    public function __construct()
+    {
+        parent::__construct();
+        if ($this->session->userdata('role')=='') {
+            redirect('auth');
+        }
 
+    }
 
     public function penjualan_harian()
     {
+        
         $this->form_validation->set_rules('nama_barang', 'nama_barang', 'trim|required');
         $this->form_validation->set_rules('jumlah_beli', 'jumlah_beli', 'trim|required');
         $this->form_validation->set_rules('harga_satuan', 'harga_satuan', 'trim|required');
@@ -13,6 +21,9 @@ class laporan_keuangan extends CI_Controller {
 
         
         if ($this->form_validation->run() == FALSE) {
+            if ($this->session->userdata('role')!='admin') {
+            redirect('auth/notadmin');
+        }
             $this->db->order_by('nama_barang', 'asc');
             $data = array(
                 'barang' => $this->db->get('barang'), 
@@ -77,6 +88,9 @@ class laporan_keuangan extends CI_Controller {
  
     public function form_laporan()
     {
+        if ($this->session->userdata('role')!='admin') {
+            redirect('auth/notadmin');
+        }
 
         $this->form_validation->set_rules('bulan', 'bulan', 'trim|required');
         $this->form_validation->set_rules('tahun', 'tahun', 'trim|required');
@@ -268,6 +282,9 @@ class laporan_keuangan extends CI_Controller {
 
     public function pengeluaran()
     {
+        if ($this->session->userdata('role')!='admin') {
+            redirect('auth/notadmin');
+        }
         $this->form_validation->set_rules('nama_pengeluaran', 'nama_pengeluaran', 'trim|required');
         $this->form_validation->set_rules('total_pengeluaran', 'total_pengeluaran', 'trim|required|numeric');
         

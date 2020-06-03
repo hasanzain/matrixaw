@@ -7,7 +7,9 @@ class barang extends CI_Controller {
     public function __construct()
     {
         parent::__construct();
-        //Load Dependencies
+        if ($this->session->userdata('role')=='') {
+            redirect('auth');
+        }
 
     }
 
@@ -53,6 +55,10 @@ class barang extends CI_Controller {
     // Add a new item
     public function barang_masuk()
     {
+        if ($this->session->userdata('role')!='admin') {
+            redirect('auth/notadmin');
+        }
+        
         $this->form_validation->set_rules('price_list', 'price_list', 'trim|required');
         $this->form_validation->set_rules('jumlah_beli', 'jumlah_beli', 'trim|required|numeric');
         $this->form_validation->set_rules('net', 'net', 'trim|required|numeric');
@@ -166,7 +172,9 @@ class barang extends CI_Controller {
     //Update one item
     public function retur_barang()
     {
-
+        if ($this->session->userdata('role')!='admin') {
+            redirect('auth/notadmin');
+        }
         
         $this->form_validation->set_rules('nama_barang', 'nama_barang', 'trim|required');
         $this->form_validation->set_rules('kode_barang', 'kode_barang', 'trim|required');

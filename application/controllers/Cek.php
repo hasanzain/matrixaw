@@ -49,6 +49,7 @@ class Cek extends CI_Controller {
             'jumlah_bayar' => $this->input->post('jumlah_bayar'),
             'tanggal_bayar' => $this->input->post('tanggal_bayar'),
             'keterangan' => $this->input->post('keterangan'),
+            'toko' => $this->session->userdata('toko')
          );
          
          
@@ -73,6 +74,7 @@ class Cek extends CI_Controller {
             'tanggal_bayar' => date('Y-m-d'),
             'keterangan' => 'pembayaran sudah telat',
          );
+        $this->db->where('toko',$this->session->userdata('toko'));
         $this->db->where("tanggal_bayar < ", date('Y-m-d'));
         $this->db->update('cek', $new);
         
@@ -84,8 +86,7 @@ class Cek extends CI_Controller {
         $now = date('Y-m-d');
         
         $hmin = ($tahun."-".$bulan."-".$tanggal);
-        // var_dump($tanggal,$bulan,$tahun, $hmin);
-        // die;
+        $this->db->where('toko',$this->session->userdata('toko'));
         $this->db->where('tanggal_bayar BETWEEN "'. date('Y-m-d', strtotime($now)). '" and "'. date('Y-m-d', strtotime($hmin)).'"');
         $this->db->order_by('tanggal_bayar', 'asc');
         
@@ -108,6 +109,7 @@ class Cek extends CI_Controller {
         $this->db->order_by('nama_supplier', 'asc');
         
         $supplier = $this->db->get('supplier');
+        $this->db->where('toko',$this->session->userdata('toko'));
         if ($tanggal != null) {
             $this->db->where('tanggal_bayar', $tanggal);
         }
@@ -128,18 +130,14 @@ class Cek extends CI_Controller {
         $this->load->view('header/footer');
         
     }
-    
-    //Update one item
-    public function update( $id = NULL )
-    {
-
-    }
+        
 
     //Delete one item
     public function delete()
     {
         $id = $this->input->get('id');
         $this->db->where('id', $id);
+        $this->db->where('toko',$this->session->userdata('toko'));
         
         if ($this->db->delete('cek')) {
             redirect('dashboard');

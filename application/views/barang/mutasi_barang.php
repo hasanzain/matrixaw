@@ -43,6 +43,7 @@
                                     <th scope="col">Harga Satuan</th>
                                     <th scope="col">Barang Masuk</th>
                                     <th scope="col">Barang Keluar</th>
+                                    <th scope="col">#</th>
 
                                 </tr>
                             </thead>
@@ -59,6 +60,10 @@
                                     <td><?= $key['harga_satuan'] ?></td>
                                     <td><?= $key['jumlah_masuk'] ?></td>
                                     <td><?= $key['jumlah_keluar'] ?></td>
+                                    <td><a href="delete_mutasi?id=<?= $key['id'] ?>">
+                                            <button type="button" class="btn btn-danger">Hapus</button>
+                                        </a>
+                                    </td>
 
                                 </tr>
                                 <?php

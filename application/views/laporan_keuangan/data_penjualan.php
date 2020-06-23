@@ -39,6 +39,7 @@
                                     <th scope="col">Harga Satuan</th>
                                     <th scope="col"></th>
                                     <th scope="col">Total</th>
+                                    <th scope="col">#</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,6 +60,14 @@
                                     <td><?= $key['harga_satuan'] ?></td>
                                     <td class="text-right">Rp.</td>
                                     <td class="text-right"><?= $key['total'] ?></td>
+                                    <td class="text-right">
+                                        <a href="edit_penjualan?id=<?= $key['id'] ?>">
+                                            <button type="button" class="btn btn-warning">Edit</button>
+                                        </a>
+                                        <a href="delete_penjualan?id=<?= $key['id'] ?>">
+                                            <button type="button" class="btn btn-danger">Hapus</button>
+                                        </a>
+                                    </td>
 
                                 </tr>
                                 <?php
@@ -71,6 +80,7 @@
                                         <td colspan=4>Jumlah Total</td>
                                         <td class='text-right'>Rp.</td>
                                         <td class='text-right'>$jumlah</td>
+                                        <td></td>
                                     </tr>";
                         }
                                 ?>

@@ -6,7 +6,8 @@ class autocomplate extends CI_Controller {
 
     function getdatabarang()
     {
-        $datacuti = $this->ajax_model->ambildatabarang()->result();
+        $toko = $this->session->userdata('toko');
+        $datacuti = $this->ajax_model->ambildatabarang($toko)->result();
         echo json_encode($datacuti);
     }
 
@@ -14,7 +15,8 @@ class autocomplate extends CI_Controller {
     {
         $nama_barang=$this->input->post('nama_barang');
         $where=array('nama_barang'=> $nama_barang);
-        $databarang = $this->ajax_model->ambilid_barang('barang',$where)->result();
+        $toko = $this->session->userdata('toko');
+        $databarang = $this->ajax_model->ambilid_barang('barang',$where, $toko)->result();
         echo json_encode($databarang);
     }
 

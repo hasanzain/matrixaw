@@ -40,6 +40,7 @@ class piutang_toko extends CI_Controller {
                 'nominal_hutang' => $this->input->post('nominal'),
                 'nominal_pembayaran' => 0,
                 'keterangan' => $this->input->post('keterangan'),
+                'toko' => $this->session->userdata('toko')
                 );
 
             
@@ -83,6 +84,7 @@ class piutang_toko extends CI_Controller {
                 'nominal_hutang' => 0,
                 'nominal_pembayaran' => $this->input->post('nominal'),
                 'keterangan' => $this->input->post('keterangan'),
+                'toko' => $this->session->userdata('toko')
                 );
 
             
@@ -107,6 +109,7 @@ class piutang_toko extends CI_Controller {
         $this->db->order_by('nama_barang', 'asc');
         
         $barang = $this->db->get('barang');
+        $this->db->where('toko',$this->session->userdata('toko'));
         if ($tanggal != null) {
             $this->db->where('tanggal', $tanggal);
         }

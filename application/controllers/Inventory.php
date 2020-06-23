@@ -42,12 +42,14 @@ class Inventory extends CI_Controller {
                 'nama_barang' => $this->input->post('nama_barang'),
                 'kode_barang' => $this->input->post('kode_barang'),
                 'harga_satuan' => $this->input->post('harga_satuan'),
+                'toko' => $this->session->userdata('toko')
                 );
             $stok_barang = array(
                 'tanggal' => date("Y-m-d"),
                 'nama_barang' => $this->input->post('nama_barang'),
                 'kode_barang' => $this->input->post('kode_barang'),
                 'harga_satuan' => $this->input->post('harga_satuan'),
+                'toko' => $this->session->userdata('toko')
                 
                 );
                 
@@ -69,6 +71,7 @@ class Inventory extends CI_Controller {
     {
         $id = $this->input->get('id');
         $id_post = $this->input->post('id');
+        $this->db->where('toko',$this->session->userdata('toko'));
         $this->db->where('id', $id);
         
         $data = array(
@@ -84,6 +87,7 @@ class Inventory extends CI_Controller {
                 'kode_barang' => $this->input->post('kode_barang'),
                 'harga_satuan' => $this->input->post('harga_satuan')
             );
+            $this->db->where('toko',$this->session->userdata('toko'));
             $this->db->where('id', $id_post);
            if ($this->db->update('barang', $data)){
                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diubah</div>');
@@ -102,6 +106,7 @@ class Inventory extends CI_Controller {
     public function delete_inventory( $id = NULL )
     {
         $id = $this->input->get('id');
+        $this->db->where('toko',$this->session->userdata('toko'));
         $this->db->where('id', $id);
         
         if ($this->db->delete('barang')) {

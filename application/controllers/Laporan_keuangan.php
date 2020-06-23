@@ -35,6 +35,7 @@ class laporan_keuangan extends CI_Controller {
              //mencari stok terakhir
             $nama_barang = $this->input->post('nama_barang');
             $jumlah_masuk = $this->input->post('jumlah_beli');
+            $this->db->where('toko',$this->session->userdata('toko'));
             $this->db->where('nama_barang', $nama_barang);
             $query = $this->db->get('stok_barang')->result_array();
             $stok_terakhir = "";
@@ -48,7 +49,8 @@ class laporan_keuangan extends CI_Controller {
                 'tanggal' => date("Y-m-d"), 
                 'kode_barang' => $this->input->post('kode_barang'), 
                 'harga_satuan' => $this->input->post('harga_satuan'), 
-                'jumlah_stok' => $update_stok
+                'jumlah_stok' => $update_stok,
+                'toko' => $this->session->userdata('toko')
             );
 
             $data_mutasi = array(
@@ -56,11 +58,13 @@ class laporan_keuangan extends CI_Controller {
                 'nama_barang' => $this->input->post('nama_barang'), 
                 'kode_barang' => $this->input->post('kode_barang'), 
                 'harga_satuan' => $this->input->post('harga_satuan'), 
-                'jumlah_keluar' => $this->input->post('jumlah_beli')
+                'jumlah_keluar' => $this->input->post('jumlah_beli'),
+                'toko' => $this->session->userdata('toko')
             );
 
    
             $this->db->where('nama_barang', $nama_barang);
+            $this->db->where('toko',$this->session->userdata('toko'));
             $update = $this->db->update('stok_barang', $stok_barang);
             $insert = $this->db->insert('mutasi_barang', $data_mutasi);
 
@@ -70,7 +74,8 @@ class laporan_keuangan extends CI_Controller {
                 'nama_barang' => $this->input->post('nama_barang'),
                 'jumlah_beli' => $this->input->post('jumlah_beli'),
                 'harga_satuan' => $this->input->post('harga_satuan'),
-                'total' => $this->input->post('total')
+                'total' => $this->input->post('total'),
+                'toko' => $this->session->userdata('toko')
              );
             $query = $this->db->insert('penjualan', $data);
             if ($query && $update && $insert) {
@@ -116,11 +121,9 @@ class laporan_keuangan extends CI_Controller {
                 $status_piutang_toko = false;
                 $status_mixing = false;
 
-
-
-
                 // menambahkan data penjualan
                 // $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
+                $this->db->where('toko',$this->session->userdata('toko'));
                 $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
                 $penjualan = $this->db->get('penjualan')->result_array();
                 foreach ($penjualan as $key) {
@@ -131,7 +134,8 @@ class laporan_keuangan extends CI_Controller {
                         'nama_barang' => $key['nama_barang'],
                         'jumlah_beli' => $key['jumlah_beli'],
                         'harga_satuan' => $key['harga_satuan'],
-                        'total' => $key['total']
+                        'total' => $key['total'],
+                        'toko' => $this->session->userdata('toko')
                      );
                     $status_penjualan = $this->db->insert('laporan_penjualan', $data);
                 }
@@ -139,6 +143,7 @@ class laporan_keuangan extends CI_Controller {
 
 
                 // menambahkan data mixing 
+                $this->db->where('toko',$this->session->userdata('toko'));
                 $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
                 $piutang_custmer = $this->db->get('penjualan_mixing')->result_array();
                 foreach ($piutang_custmer as $key) {
@@ -149,6 +154,7 @@ class laporan_keuangan extends CI_Controller {
                         'nama_barang' => $key['warna'],
                         'jumlah_beli' => $key['jumlah_pesanan   '],
                         'total' => $key['harga'],
+                        'toko' => $this->session->userdata('toko')
                      );
                      $status_mixing = $this->db->insert('laporan_penjualan', $data);
                      
@@ -157,6 +163,7 @@ class laporan_keuangan extends CI_Controller {
                 
 
                 // menambahkan data hutang_customer
+                $this->db->where('toko',$this->session->userdata('toko'));
                 $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
                 $piutang_custmer = $this->db->get('piutang_customer')->result_array();
                 foreach ($piutang_custmer as $key) {
@@ -167,6 +174,7 @@ class laporan_keuangan extends CI_Controller {
                         'nama_barang' => $key['nama_perusahaan'],
                         'total' => $key['nominal_pembayaran'],
                         'kredit' => $key['nominal_hutang'],
+                        'toko' => $this->session->userdata('toko')
                      );
                      $status_piutang_customer = $this->db->insert('laporan_penjualan', $data);
                      
@@ -175,6 +183,7 @@ class laporan_keuangan extends CI_Controller {
 
 
                 // menambahkan data hutang_toko
+                $this->db->where('toko',$this->session->userdata('toko'));
                 $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
                 $piutang_custmer = $this->db->get('piutang_toko')->result_array();
                 foreach ($piutang_custmer as $key) {
@@ -185,6 +194,7 @@ class laporan_keuangan extends CI_Controller {
                         'nama_barang' => $key['nama_perusahaan'],
                         'total' => $key['nominal_hutang'],
                         'kredit' => $key['nominal_pembayaran'],
+                        'toko' => $this->session->userdata('toko')
                      );
                      $status_piutang_toko = $this->db->insert('laporan_penjualan', $data);
                      
@@ -192,6 +202,7 @@ class laporan_keuangan extends CI_Controller {
                 // menambahkan data hutang_toko
 
                 // menambahkan data pengeluaran 
+                $this->db->where('toko',$this->session->userdata('toko'));
                 $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
                 $piutang_custmer = $this->db->get('pengeluaran')->result_array();
                 foreach ($piutang_custmer as $key) {
@@ -201,6 +212,7 @@ class laporan_keuangan extends CI_Controller {
                         'tanggal' => $key['tanggal'],
                         'nama_barang' => $key['nama_pengeluaran'],
                         'kredit' => $key['total_pengeluaran'],
+                        'toko' => $this->session->userdata('toko')
                      );
                      $status_pengeluaran = $this->db->insert('laporan_penjualan', $data);
                      
@@ -211,7 +223,7 @@ class laporan_keuangan extends CI_Controller {
                 
             
             
-                if ($status_penjualan && $status_piutang_customer && $status_piutang_toko && $status_pengeluaran && $status_mixing) {
+                if ($status_penjualan or $status_piutang_customer or $status_piutang_toko or $status_pengeluaran or $status_mixing) {
                     $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan berhasil ditambahkan</div>');
                     redirect('form_laporan');
                 } else {
@@ -241,6 +253,7 @@ class laporan_keuangan extends CI_Controller {
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan '.$bulan.' '.$tahun.'</div>');
             $this->db->where('bulan', $bulan);
             $this->db->where('tahun', $tahun);
+            $this->db->where('toko',$this->session->userdata('toko'));
             
             $data = array(
                 'laporan_penjualan' => $this->db->get('laporan_penjualan')
@@ -269,6 +282,7 @@ class laporan_keuangan extends CI_Controller {
         else{
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
+            $this->db->where('toko',$this->session->userdata('toko'));
             $this->db->where('tanggal', $tanggal);
             $data = array(
                 'data_penjualan' => $this->db->get('penjualan')
@@ -299,6 +313,8 @@ class laporan_keuangan extends CI_Controller {
                 'nama_pengeluaran' => $this->input->post('nama_pengeluaran'),
                 'total_pengeluaran' => $this->input->post('total_pengeluaran'),
                 'keterangan' => $this->input->post('keterangan'),
+                'toko' => $this->session->userdata('toko'),
+                'toko' => $this->session->userdata('toko')
              );
 
              if ($this->db->insert('pengeluaran', $data)) {
@@ -311,6 +327,57 @@ class laporan_keuangan extends CI_Controller {
         }
         
         
+    }
+
+    public function edit_penjualan( $id = NULL )
+    {
+        $id = $this->input->get('id');
+        $id_post = $this->input->post('id');
+        $this->db->where('toko',$this->session->userdata('toko'));
+        $this->db->where('id', $id);
+        
+        $data = array(
+            'penjualan' => $this->db->get('penjualan')
+        );
+        if ($id != "") {
+            $this->load->view('header/header'); 
+            $this->load->view('laporan_keuangan/edit_penjualan',$data);
+            $this->load->view('header/footer');
+        }elseif ($id_post != ""){
+            $data = array(
+                'jumlah_beli' => $this->input->post('jumlah_beli'),
+                'harga_satuan' => $this->input->post('harga_satuan'),
+                'total' => $this->input->post('total')
+            );
+            $this->db->where('toko',$this->session->userdata('toko'));
+            $this->db->where('id', $id_post);
+           if ($this->db->update('penjualan', $data)){
+               $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diubah</div>');
+               redirect('data_penjualan');
+
+           }else{
+               $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data gagal diubah</div>');
+               redirect('data_penjualan');
+           }  
+
+        }
+        
+    }
+    public function delete_penjualan( $id = NULL )
+    {
+        $id = $this->input->get('id');
+        $this->db->where('toko',$this->session->userdata('toko'));
+        $this->db->where('id', $id);
+        
+        if ($this->db->delete('penjualan')) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil dihapus</div>');
+            redirect('data_penjualan');
+        }else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data gagal dihapus</div>');
+            redirect('data_penjualan');
+        }
+        
+
     }
 
 }

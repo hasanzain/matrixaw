@@ -25,6 +25,7 @@
                                     <th scope="col">Kode barang</th>
                                     <th scope="col">Harga Satuan</th>
                                     <th scope="col">Jumlah Stok</th>
+                                    <th scope="col">#</th>
 
                                 </tr>
                             </thead>
@@ -40,6 +41,11 @@
                                     <td><?= $key['kode_barang'] ?></td>
                                     <td><?= $key['harga_satuan'] ?></td>
                                     <td><?= $key['jumlah_stok'] ?></td>
+                                    <td>
+                                        <a href="edit_stok?id=<?= $key['id'] ?>">
+                                            <button type="button" class="btn btn-danger">Edit</button>
+                                        </a>
+                                    </td>
 
                                 </tr>
                                 <?php

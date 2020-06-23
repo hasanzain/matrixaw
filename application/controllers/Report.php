@@ -20,6 +20,7 @@ public function __construct()
     public function index()
     {
         $data = array('report' => $this->db->get('report') );
+        $this->db->where('toko',$this->session->userdata('toko'));
         $this->load->view('header/header');
         $this->load->view('report/report',$data);
         $this->load->view('header/footer');
@@ -31,6 +32,7 @@ public function __construct()
     {
         $bulan = $this->input->post('bulan');
         $tahun = $this->input->post('tahun');
+        $this->db->where('toko',$this->session->userdata('toko'));
         $this->db->where('bulan', $bulan);
         $this->db->where('tahun', $tahun);
         

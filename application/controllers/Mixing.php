@@ -27,6 +27,7 @@ class mixing extends CI_Controller {
              //mencari stok terakhir
             $nama_barang = $this->input->post('nama_barang');
             $jumlah_masuk = $this->input->post('jumlah_beli');
+            $this->db->where('toko',$this->session->userdata('toko'));
             $this->db->where('nama_barang', $nama_barang);
             $query = $this->db->get('stok_barang')->result_array();
             $stok_terakhir = "";
@@ -39,7 +40,8 @@ class mixing extends CI_Controller {
             $stok_barang = array(
                 'tanggal' => date("Y-m-d"), 
                 'kode_barang' => $this->input->post('kode_barang'), 
-                'jumlah_stok' => $update_stok
+                'jumlah_stok' => $update_stok,
+                'toko' => $this->session->userdata('toko')
             );
 
             $data_mutasi = array(
@@ -47,10 +49,11 @@ class mixing extends CI_Controller {
                 'nama_barang' => $this->input->post('nama_barang'), 
                 'kode_barang' => $this->input->post('kode_barang'), 
                 'harga_satuan' => $this->input->post('harga_satuan'), 
-                'jumlah_keluar' => $this->input->post('jumlah_beli')
+                'jumlah_keluar' => $this->input->post('jumlah_beli'),
+                'toko' => $this->session->userdata('toko')
             );
 
-   
+            $this->db->where('toko',$this->session->userdata('toko'));
             $this->db->where('nama_barang', $nama_barang);
             $update = $this->db->update('stok_barang', $stok_barang);
             $insert = $this->db->insert('mutasi_barang', $data_mutasi);
@@ -87,6 +90,7 @@ class mixing extends CI_Controller {
             'jumlah_pesanan' => $this->input->post('jumlah_pesanan'),
             'harga' => $this->input->post('harga'),
             'keterangan' => $this->input->post('keterangan'),
+            'toko' => $this->session->userdata('toko')
         );
 
         
@@ -100,6 +104,85 @@ class mixing extends CI_Controller {
         
         }
         
+    }
+
+    public function data_mixing()
+    {
+        $tanggal = $this->input->post('tanggal');
+
+        if($tanggal == null){
+            $data = array(
+                'data_mixing' => null
+                );
+            $this->load->view('header/header');
+            $this->load->view('mixing/data_mixing',$data);
+            $this->load->view('header/footer');
+        }
+        else{
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
+            $this->db->where('toko',$this->session->userdata('toko'));
+            $this->db->where('tanggal', $tanggal);
+            $data = array(
+                'data_mixing' => $this->db->get('penjualan_mixing')
+                );
+            $this->load->view('header/header');
+            $this->load->view('mixing/data_mixing', $data);
+            $this->load->view('header/footer');
+        }
+        
+    }
+
+    public function edit_mixing( $id = NULL )
+    {
+        $id = $this->input->get('id');
+        $id_post = $this->input->post('id');
+        $this->db->where('toko',$this->session->userdata('toko'));
+        $this->db->where('id', $id);
+        
+        $data = array(
+            'penjualan_mixing' => $this->db->get('penjualan_mixing')
+        );
+        if ($id != "") {
+            $this->load->view('header/header'); 
+            $this->load->view('mixing/edit_mixing',$data);
+            $this->load->view('header/footer');
+        }elseif ($id_post != ""){
+            $data = array(
+                'warna' => $this->input->post('warna'),
+                'jumlah_pesanan' => $this->input->post('jumlah_pesanan'),
+                'harga' => $this->input->post('harga')
+            );
+            $this->db->where('toko',$this->session->userdata('toko'));
+            $this->db->where('id', $id_post);
+           if ($this->db->update('penjualan_mixing', $data)){
+               $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil diubah</div>');
+               redirect('data_mixing');
+
+           }else{
+               $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data gagal diubah</div>');
+               redirect('data_mixing');
+           }  
+
+        }
+        
+    }
+    
+    public function delete_mixing( $id = NULL )
+    {
+        $id = $this->input->get('id');
+        $this->db->where('toko',$this->session->userdata('toko'));
+        $this->db->where('id', $id);
+        
+        if ($this->db->delete('penjualan_mixing')) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil dihapus</div>');
+            redirect('data_mixing');
+        }else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data gagal dihapus</div>');
+            redirect('data_mixing');
+        }
+        
+
     }
 
 }

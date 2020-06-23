@@ -28,7 +28,8 @@ class auth extends CI_Controller {
            if (password_verify($password,$user['password'])) {
                $data = array(
                    'email' => $user['email'],
-                   'role' => $user['role']
+                   'role' => $user['role'],
+                   'toko' => $user['toko']
                  );
                  
                  $this->session->set_userdata($data);
@@ -57,6 +58,61 @@ class auth extends CI_Controller {
         $this->load->view('notadmin');
         
     }
+
+    public function tambah_user()
+    {
+        $this->form_validation->set_rules('email', 'email', 'trim|required|valid_email|is_unique[user.email]');
+        $this->form_validation->set_rules('password', 'password', 'trim|required');
+        
+        
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('header/header');
+            $this->load->view('user/tambah_user');
+            $this->load->view('header/footer');
+        } else {
+            $data = array(
+                'email' => htmlspecialchars($this->input->post('email',true)),
+                'password' => password_hash($this->input->post('password'),PASSWORD_DEFAULT),
+                'role' => $this->input->post('role'),
+                'toko' => $this->input->post('toko'),
+             );
+
+             
+             if ($this->db->insert('user', $data)) {
+                $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">User berhasil ditambahkan</div>');
+                redirect('tambah_user');
+             }else{
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">User gagal ditambahkan</div>');
+                redirect('tambah_user');
+             }
+             
+        }
+
+        
+    }
+    
+    public function daftar_user()
+        {
+            $this->db->where('toko', $this->session->userdata('toko'));
+            
+            $data = array('user' => $this->db->get('user'));
+            
+            $this->load->view('header/header');
+            $this->load->view('user/daftar_user',$data);
+            $this->load->view('header/footer');
+        }
+
+    public function delete_user()
+    {
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+        $this->db->delete('user');
+        redirect('daftar_user');
+        
+        
+        
+    }
+        
 
 }
 

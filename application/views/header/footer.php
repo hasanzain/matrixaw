@@ -1,7 +1,8 @@
 <footer class="py-4 bg-light mt-auto">
     <div class="container-fluid">
         <div class="d-flex align-items-center justify-content-between small">
-            <div class="text-muted">Design By &copy; Hasan Zain</div>
+            <div class="text-muted">Copyright &copy; www.onprojek.
+                com</div>
         </div>
     </div>
 </footer>

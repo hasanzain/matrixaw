@@ -8,6 +8,10 @@
                     <div class="card-body">
                         <form action="<?= base_url("penjualan_mixing") ?>" method="post">
                             <div class="form-group">
+                                <label>Tanggal</label>
+                                <input type="date" class="form-control" name="tanggal" value="<?= $tanggal ?>">
+                            </div>
+                            <div class="form-group">
                                 <label>Warna</label>
                                 <input type="text" class="form-control" name="warna">
                                 <?= form_error('warna','<small class="text-danger pl-3">','</small>'); ?>

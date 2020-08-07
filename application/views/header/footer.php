@@ -43,12 +43,16 @@ function hitungnet() {
     var d4 = document.getElementById("diskon4").value;
     var ppn = document.getElementById("ppn").value;
     var net1 = price_list * d1 / 100;
-    var net2 = d1 * d2 / 100;
-    var net3 = d2 * d3 / 100;
-    var net4 = d3 * d4 / 100;
-    var totalnet = price_list - (net1 + net2 + net3 + net4);
-    var ppn = (totalnet) * ppn / 100;
-    document.getElementById("harga_satuan").value = totalnet + ppn;
+    var harga1 = price_list - net1;
+    var net2 = harga1 * d2 / 100;
+    var harga2 = harga1 - net2;
+    var net3 = harga2 * d3 / 100;
+    var harga3 = harga2 - net3;
+    var net4 = harga3 * d4 / 100;
+    var harga4 = harga3 - net4;
+    var ppn = (harga4) * ppn / 100;
+    var totalharga = harga4 + ppn;
+    document.getElementById("harga_satuan").value = totalharga;
 }
 
 function getdata2() {

@@ -36,6 +36,12 @@
                             </div>
 
                             <div class="form-group">
+                                <label>Nomor Cek</label>
+                                <input type="text" class="form-control" name="no_cek">
+                                <?= form_error('no_cek','<small class="text-danger pl-3">','</small>'); ?>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="exampleFormControlTextarea1">Keterangan</label>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
                                     name="keterangan"></textarea>

@@ -7,6 +7,12 @@
                 <div class="card border-primary col-lg-10">
                     <div class="card-body">
                         <form action="<?= base_url("retur_barang") ?>" method="post">
+                            <div class="form-group" id='EditForm'>
+                                <label>Tanggal</label>
+                                <input type="date" class="form-control" name="tanggal" id="tanggal"
+                                    value="<?= $tanggal ?>">
+                                <?= form_error('total','<small class="text-danger pl-3">','</small>'); ?>
+                            </div>
                             <div class="form-group">
                                 <label>Nama Barang</label>
                                 <!-- <input type="text" class="form-control" name="nama_barang" id="nama_barang"> -->

@@ -11,7 +11,8 @@ class laporan_keuangan extends CI_Controller {
 
     }
 
-    public function penjualan_harian()
+
+    public function penjualan()
     {
         
         $this->form_validation->set_rules('nama_barang', 'nama_barang', 'trim|required');
@@ -24,9 +25,11 @@ class laporan_keuangan extends CI_Controller {
             if ($this->session->userdata('role')!='admin') {
             redirect('auth/notadmin');
         }
+        
             $this->db->order_by('nama_barang', 'asc');
             $data = array(
-                'barang' => $this->db->get('barang'), 
+                'barang' => $this->db->get('barang'),
+                'tanggal' => date("Y-m-d")   
             );
             $this->load->view('header/header');
             $this->load->view('laporan_keuangan/penjualan_harian',$data);
@@ -35,6 +38,7 @@ class laporan_keuangan extends CI_Controller {
              //mencari stok terakhir
             $nama_barang = $this->input->post('nama_barang');
             $jumlah_masuk = $this->input->post('jumlah_beli');
+            $tanggal = $this->input->post('tanggal');
             $this->db->where('toko',$this->session->userdata('toko'));
             $this->db->where('nama_barang', $nama_barang);
             $query = $this->db->get('stok_barang')->result_array();
@@ -46,7 +50,7 @@ class laporan_keuangan extends CI_Controller {
 
             $update_stok = $stok_terakhir - $jumlah_masuk;
             $stok_barang = array(
-                'tanggal' => date("Y-m-d"), 
+                'tanggal' => $tanggal, 
                 'kode_barang' => $this->input->post('kode_barang'), 
                 'harga_satuan' => $this->input->post('harga_satuan'), 
                 'jumlah_stok' => $update_stok,
@@ -54,7 +58,7 @@ class laporan_keuangan extends CI_Controller {
             );
 
             $data_mutasi = array(
-                'tanggal' => date("Y-m-d"), 
+                'tanggal' => $tanggal, 
                 'nama_barang' => $this->input->post('nama_barang'), 
                 'kode_barang' => $this->input->post('kode_barang'), 
                 'harga_satuan' => $this->input->post('harga_satuan'), 
@@ -70,7 +74,7 @@ class laporan_keuangan extends CI_Controller {
 
             // penjualan
             $data = array(
-                'tanggal' => date("Y-m-d"),
+                'tanggal' => $tanggal,
                 'nama_barang' => $this->input->post('nama_barang'),
                 'jumlah_beli' => $this->input->post('jumlah_beli'),
                 'harga_satuan' => $this->input->post('harga_satuan'),
@@ -86,6 +90,37 @@ class laporan_keuangan extends CI_Controller {
                 redirect('penjualan_harian');
             }
             
+        }
+        
+    }
+
+    public function penjualan_harian()
+    {
+        $cari = $this->input->post('cari');
+        if ($cari == '') {
+            $this->db->order_by('nama_barang', 'asc');
+            
+            $data = array(
+                'barang' => $this->db->get('barang'),
+                'tanggal' => date("Y-m-d")   
+            );
+            $this->load->view('header/header');
+            $this->load->view('laporan_keuangan/penjualan_harian',$data);
+            $this->load->view('header/footer');
+        }else{
+            $search = explode(' ',$cari);
+            foreach ($search as &$value) {
+                
+            }
+            $query = $this->db->query("SELECT * FROM barang WHERE nama_barang LIKE '%$search[0]%' and nama_barang LIKE '%$search[1]%'");
+            
+            $data = array(
+                'barang' => $query,
+                'tanggal' => date("Y-m-d")   
+            );
+            $this->load->view('header/header');
+            $this->load->view('laporan_keuangan/penjualan_harian',$data);
+            $this->load->view('header/footer');
         }
         
     }
@@ -106,8 +141,6 @@ class laporan_keuangan extends CI_Controller {
             $this->load->view('laporan_keuangan/form_laporan');
             $this->load->view('header/footer');
         } else {
-            // $dari = $this->input->post('dari');
-            // $sampai = $this->input->post('sampai');
             $bulan = $this->input->post('bulan');
             $tahun = $this->input->post('tahun');
             $dari = $tahun."-".$bulan."-1";
@@ -152,7 +185,7 @@ class laporan_keuangan extends CI_Controller {
                         'tahun' => $tahun,
                         'tanggal' => $key['tanggal'],
                         'nama_barang' => $key['warna'],
-                        'jumlah_beli' => $key['jumlah_pesanan   '],
+                        'jumlah_beli' => $key['jumlah_pesanan'],
                         'total' => $key['harga'],
                         'toko' => $this->session->userdata('toko')
                      );
@@ -284,8 +317,13 @@ class laporan_keuangan extends CI_Controller {
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
             $this->db->where('toko',$this->session->userdata('toko'));
             $this->db->where('tanggal', $tanggal);
+            $data_penjualan = $this->db->get('penjualan');
+            $this->db->where('toko',$this->session->userdata('toko'));
+            $this->db->where('tanggal', $tanggal);
+            $mixing = $this->db->get('penjualan_mixing');
             $data = array(
-                'data_penjualan' => $this->db->get('penjualan')
+                'data_penjualan' => $data_penjualan,
+                'mixing' => $mixing,
                 );
             $this->load->view('header/header');
             $this->load->view('laporan_keuangan/data_penjualan', $data);
@@ -304,12 +342,13 @@ class laporan_keuangan extends CI_Controller {
         
         
         if ($this->form_validation->run() == FALSE) {
+            $data = array('tanggal' => date("Y-m-d") );
             $this->load->view('header/header');
-            $this->load->view('laporan_keuangan/pengeluaran');
+            $this->load->view('laporan_keuangan/pengeluaran',$data);
             $this->load->view('header/footer');
         } else {
             $data = array(
-                'tanggal' => date("Y-m-d"),
+                'tanggal' => $this->input->post('tanggal'),
                 'nama_pengeluaran' => $this->input->post('nama_pengeluaran'),
                 'total_pengeluaran' => $this->input->post('total_pengeluaran'),
                 'keterangan' => $this->input->post('keterangan'),

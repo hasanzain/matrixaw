@@ -107,9 +107,10 @@ public function __construct()
         $spreadsheet->getActiveSheet()->getColumnDimension('I')->setAutoSize(true);
 
         $writer = new Xlsx($spreadsheet);
-
+        
+        $judul_laporan = 'laporan Keuangan('.$bulan.'-'.$tahun.').xlsx';
         header('Content-Type: application/vnd.ms-excel');
-        header('Content-Disposition: attachment;filename="Latihan.xlsx"');
+        header('Content-Disposition: attachment;filename="'.$judul_laporan.'"');
         header('Cache-Control: max-age=0');
 
         $writer->save('php://output');

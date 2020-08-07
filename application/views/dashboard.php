@@ -16,9 +16,13 @@
                             <br>
                             <?= $key['jumlah_bayar'] ?>
                             <br>
+                            <?= $key['no_cek'] ?>
+                            <br>
                             <?= $key['keterangan'] ?>
                         </div>
                         <div class="card-footer d-flex align-items-center justify-content-between">
+                            <?php if ($this->session->userdata('role')=='admin') {
+                                    ?>
                             <a class="small text-white stretched-link"
                                 href="<?= base_url('bayar_cek?id=').$key['id'] ?>">
                                 <?= $key['tanggal_bayar'] ?>
@@ -26,6 +30,9 @@
                                 Bayar
                             </a>
                             <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                            <?php
+                        }
+                        ?>
                         </div>
                     </div>
                 </div>

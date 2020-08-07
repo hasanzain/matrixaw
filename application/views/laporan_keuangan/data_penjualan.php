@@ -61,12 +61,17 @@
                                     <td class="text-right">Rp.</td>
                                     <td class="text-right"><?= $key['total'] ?></td>
                                     <td class="text-right">
+                                        <?php if ($this->session->userdata('role')=='admin') {
+                                    ?>
                                         <a href="edit_penjualan?id=<?= $key['id'] ?>">
                                             <button type="button" class="btn btn-warning">Edit</button>
                                         </a>
                                         <a href="delete_penjualan?id=<?= $key['id'] ?>">
                                             <button type="button" class="btn btn-danger">Hapus</button>
                                         </a>
+                                        <?php
+                                    }
+                                    ?>
                                     </td>
 
                                 </tr>
@@ -74,6 +79,33 @@
                         $i++;
                         $jumlah += $key['total'];
                         
+                            }
+                            foreach ($mixing->result_array() as $key) {
+                                ?>
+                                <tr>
+                                    <th scope="row"><?= $i ?></th>
+                                    <td><?= $key['warna'] ?></td>
+                                    <td><?= $key['jumlah_pesanan'] ?></td>
+                                    <td>&nbsp</td>
+                                    <td class="text-right">Rp.</td>
+                                    <td class="text-right"><?= $key['harga'] ?></td>
+                                    <td class="text-right">
+                                        <?php if ($this->session->userdata('role')=='admin') {
+                                    ?>
+                                        <a href="edit_penjualan?id=<?= $key['id'] ?>">
+                                            <button type="button" class="btn btn-warning">Edit</button>
+                                        </a>
+                                        <a href="delete_penjualan?id=<?= $key['id'] ?>">
+                                            <button type="button" class="btn btn-danger">Hapus</button>
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
+                                    </td>
+                                </tr>
+                                <?php
+                                $i++;
+                                $jumlah += $key['harga'];
                             }
                             echo
                                     "<tr class='table-info'>

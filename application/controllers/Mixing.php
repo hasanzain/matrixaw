@@ -20,8 +20,9 @@ class mixing extends CI_Controller {
         
         
         if ($this->form_validation->run() == FALSE) {
+            $data = array('tanggal' => date("Y-m-d") );
             $this->load->view('header/header');
-            $this->load->view('mixing/pengambilan_cat');
+            $this->load->view('mixing/pengambilan_cat',$data);
             $this->load->view('header/footer');
         } else {
              //mencari stok terakhir
@@ -38,14 +39,14 @@ class mixing extends CI_Controller {
 
             $update_stok = $stok_terakhir - $jumlah_masuk;
             $stok_barang = array(
-                'tanggal' => date("Y-m-d"), 
+                'tanggal' => $this->input->post('tanggal'), 
                 'kode_barang' => $this->input->post('kode_barang'), 
                 'jumlah_stok' => $update_stok,
                 'toko' => $this->session->userdata('toko')
             );
 
             $data_mutasi = array(
-                'tanggal' => date("Y-m-d"), 
+                'tanggal' => $this->input->post('tanggal'), 
                 'nama_barang' => $this->input->post('nama_barang'), 
                 'kode_barang' => $this->input->post('kode_barang'), 
                 'harga_satuan' => $this->input->post('harga_satuan'), 
@@ -79,13 +80,14 @@ class mixing extends CI_Controller {
 
         
         if ($this->form_validation->run() == FALSE) {
+            $data = array('tanggal' => date("Y-m-d") );
             $this->load->view('header/header');
-            $this->load->view('mixing/penjualan_mixing');
+            $this->load->view('mixing/penjualan_mixing',$data);
             $this->load->view('header/footer');
         } else {
             $data = array
             (
-            'tanggal' => date("Y-m-d"), 
+            'tanggal' => $this->input->post('tanggal'),
             'warna' => $this->input->post('warna'),
             'jumlah_pesanan' => $this->input->post('jumlah_pesanan'),
             'harga' => $this->input->post('harga'),

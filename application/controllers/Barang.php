@@ -66,10 +66,12 @@ class barang extends CI_Controller {
        
         
         if ($this->form_validation->run() == false) {
-           $this->db->order_by('nama_barang', 'asc');
+            $this->db->where('toko', $this->session->userdata('toko'));
+            $supplier =$this->db->get('supplier');
+            $this->db->order_by('nama_barang', 'asc');
             $data = array(
                 'barang' => $this->db->get('barang'),
-                'supplier' => $this->db->get('supplier')
+                'supplier' => $supplier,
                 );
 
             $this->load->view('header/header');    
@@ -150,7 +152,7 @@ class barang extends CI_Controller {
         
         $this->db->where('toko',$this->session->userdata('toko'));
         if ($nama_supplier != null) {
-            $this->db->where('nama_supplier', $nama_supplier);
+            $this->db->where('supplier', $nama_supplier);
 
         }
         if ($tanggal != null) {
@@ -188,9 +190,9 @@ class barang extends CI_Controller {
         $this->form_validation->set_rules('harga_satuan', 'harga_satuan', 'trim|required|numeric');
         
         if ($this->form_validation->run() == FALSE) {
-
+            $data = array('tanggal' => date("Y-m-d") );
             $this->load->view('header/header');
-            $this->load->view('barang/retur_barang');
+            $this->load->view('barang/retur_barang',$data);
             $this->load->view('header/footer');
             
         } else {

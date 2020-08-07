@@ -33,7 +33,7 @@ class Cek extends CI_Controller {
         $this->form_validation->set_rules('tanggal_bayar', 'tanggal_bayar', 'trim|required');
         
         if ($this->form_validation->run() == FALSE){ 
-
+            $this->db->where('toko', $this->session->userdata('toko'));
             $this->db->order_by('nama_supplier', 'asc');
             $data = array(
             'supplier' => $this->db->get('supplier')
@@ -44,14 +44,17 @@ class Cek extends CI_Controller {
             $this->load->view('cek/tambah_alarm',$data);
             $this->load->view('header/footer');
         } else {
+            $splitdate =  explode("-", $this->input->post('tanggal_bayar'));
             $data = array(
+            'bulan' => $splitdate[1],
+            'tahun' => $splitdate[0],
             'nama_supplier' => $this->input->post('nama_supplier'),
             'jumlah_bayar' => $this->input->post('jumlah_bayar'),
             'tanggal_bayar' => $this->input->post('tanggal_bayar'),
+            'no_cek' => $this->input->post('no_cek'),
             'keterangan' => $this->input->post('keterangan'),
             'toko' => $this->session->userdata('toko')
          );
-         
          
          if ($this->db->insert('cek', $data)) {
             $this->session->set_flashdata('message', '<div class="alert alert-succes" role="alert">Data berhasil ditambahkan</div>');
@@ -79,13 +82,10 @@ class Cek extends CI_Controller {
         $this->db->update('cek', $new);
         
 
-        $tgl = date('d');
-        $bulan = date('m');
-        $tahun = date('Y');
-        $tanggal = $tgl+2;
+
         $now = date('Y-m-d');
         
-        $hmin = ($tahun."-".$bulan."-".$tanggal);
+        $hmin = date('Y-m-d', strtotime('+2 days', strtotime($now)));
         $this->db->where('toko',$this->session->userdata('toko'));
         $this->db->where('tanggal_bayar BETWEEN "'. date('Y-m-d', strtotime($now)). '" and "'. date('Y-m-d', strtotime($hmin)).'"');
         $this->db->order_by('tanggal_bayar', 'asc');
@@ -103,22 +103,27 @@ class Cek extends CI_Controller {
     public function daftar_alarm()
     {
        
-        $tanggal = $this->input->post('tanggal');
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
         $nama_supplier = $this->input->post('nama_supplier');
 
         $this->db->order_by('nama_supplier', 'asc');
         
         $supplier = $this->db->get('supplier');
         $this->db->where('toko',$this->session->userdata('toko'));
-        if ($tanggal != null) {
-            $this->db->where('tanggal_bayar', $tanggal);
+        if ($bulan != null) {
+            $this->db->where('bulan', $bulan);
+        }
+
+        if ($tahun != null) {
+            $this->db->where('tahun', $tahun);
         }
         
         if ($nama_supplier != null) {
             $this->db->where('nama_supplier', $nama_supplier);
         }
         
-        $this->db->order_by('id', 'desc');
+        $this->db->order_by('tanggal_bayar', 'asc');
 
         
         $data = array(
@@ -143,6 +148,22 @@ class Cek extends CI_Controller {
             redirect('dashboard');
         }else{
             redirect('dashboard');
+        }
+        
+    }
+
+        public function delete_cek()
+    {
+        $id = $this->input->get('id');
+        $this->db->where('id', $id);
+        $this->db->where('toko',$this->session->userdata('toko'));
+        
+        if ($this->db->delete('cek')) {
+            $this->session->set_flashdata('message', '<div class="alert alert-succes" role="alert">Data berhasil dihapus</div>');
+            redirect('daftar_alarm');
+        }else{
+            $this->session->set_flashdata('message', '<div class="alert alert-succes" role="alert">Data gagal dihapus</div>');
+            redirect('daftar_alarm');
         }
         
     }

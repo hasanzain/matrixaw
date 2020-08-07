@@ -20,13 +20,13 @@
                             <div class="form-group" id='EditForm'>
                                 <label>Jumlah Beli</label>
                                 <input type="text" class="form-control" name="jumlah_beli" id="jumlah_beli"
-                                    value="<?= $key['jumlah_beli'] ?>">
+                                    value="<?= $key['jumlah_beli'] ?>" onchange="hitung()">
                                 <?= form_error('jumlah_beli', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group" id='EditForm'>
                                 <label>Harga Satuan</label>
                                 <input type="text" class="form-control" name="harga_satuan" id="harga_satuan"
-                                    value="<?= $key['harga_satuan'] ?>">
+                                    value="<?= $key['harga_satuan'] ?>" onchange="hitung()">
                                 <?= form_error('harga_satuan', '<small class="text-danger pl-3">', '</small>'); ?>
                             </div>
                             <div class="form-group" id='EditForm'>

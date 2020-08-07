@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'cek/list_alarm';
 $route['penjualan_harian'] = 'laporan_keuangan/penjualan_harian';
+$route['penjualan'] = 'laporan_keuangan/penjualan';
 $route['form_laporan'] = 'laporan_keuangan/form_laporan';
 $route['laporan_penjualan'] = 'laporan_keuangan/laporan_penjualan';
 $route['data_penjualan'] = 'laporan_keuangan/data_penjualan';
@@ -66,9 +67,11 @@ $route['delete_mutasi'] = 'barang/delete_mutasi';
 $route['edit_stok'] = 'barang/edit_stok';
 $route['daftar_barang_masuk'] = 'barang/daftar_barang_masuk';
 $route['hutang_customer'] = 'piutang_customer/hutang';
+$route['delete_hutang_customer'] = 'piutang_customer/delete_hutang_customer';
 $route['pembayaran_customer'] = 'piutang_customer/pembayaran';
 $route['daftar_hutang_customer'] = 'piutang_customer/daftar_hutang';
 $route['hutang_toko'] = 'piutang_toko/hutang';
+$route['delete_hutang_toko'] = 'piutang_toko/delete_hutang_toko';
 $route['pembayaran_toko'] = 'piutang_toko/pembayaran';
 $route['daftar_hutang_toko'] = 'piutang_toko/daftar_hutang';
 $route['daftar_inventory'] = 'inventory/daftar_inventory';
@@ -79,6 +82,7 @@ $route['tambah_alarm'] = 'cek/tambah_alarm';
 $route['dashboard'] = 'cek/list_alarm';
 $route['daftar_alarm'] = 'cek/daftar_alarm';
 $route['bayar_cek'] = 'cek/delete';
+$route['delete_cek'] = 'cek/delete_cek';
 $route['report'] = 'report';
 $route['export'] = 'report/export';
 $route['pengambilan_cat'] = 'mixing/pengambilan_cat';
@@ -89,6 +93,9 @@ $route['delete_mixing'] = 'mixing/delete_mixing';
 $route['tambah_user'] = 'auth/tambah_user';
 $route['daftar_user'] = 'auth/daftar_user';
 $route['delete_user'] = 'auth/delete_user';
+$route['tambah_supplier'] = 'supplier/tambah_supplier';
+$route['daftar_supplier'] = 'supplier/daftar_supplier';
+$route['delete_supplier'] = 'supplier/delete_supplier';
 
 
 $route['404_override'] = '';

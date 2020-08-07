@@ -32,7 +32,8 @@
                             <tbody>
                                 <?php
                         $i=1;
-                      foreach ($stok_barang->result_array() as $key) {        
+                        $jumlahstok = 0;
+                        foreach ($stok_barang->result_array() as $key) {        
                             ?>
                                 <tr>
                                     <th scope="row"><?= $i++ ?></th>
@@ -42,15 +43,25 @@
                                     <td><?= $key['harga_satuan'] ?></td>
                                     <td><?= $key['jumlah_stok'] ?></td>
                                     <td>
+                                        <?php if ($this->session->userdata('role')=='admin') {
+                                    ?>
                                         <a href="edit_stok?id=<?= $key['id'] ?>">
                                             <button type="button" class="btn btn-danger">Edit</button>
                                         </a>
+                                        <?php
+                                    }
+                                    ?>
                                     </td>
 
                                 </tr>
                                 <?php
+                                $jumlahstok += $key['jumlah_stok'];
                         }
                         ?>
+                                <tr class="table-secondary">
+                                    <td colspan="5"><b>Jumlah Stok</b></td>
+                                    <td colspan="2"><?= $jumlahstok ?></td>
+                                </tr>
                             </tbody>
                         </table>
                     </div>

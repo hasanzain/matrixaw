@@ -16,6 +16,8 @@ class Inventory extends CI_Controller {
     public function daftar_inventory( $offset = 0 )
     {
         $this->db->order_by('nama_barang', 'asc');
+        $this->db->where('toko', $this->session->userdata('toko'));
+        
         $data = array(
             'barang' => $this->db->get('barang')
          );

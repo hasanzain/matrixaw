@@ -58,10 +58,14 @@
                                     <td><?= $key['nominal_pembayaran'] ?></td>
                                     <td><?= $key['keterangan'] ?></td>
                                     <td>
-
-                                        <a href="<?= base_url('delete_inventory?id=').$key['id'] ?>">
+                                        <?php if ($this->session->userdata('role')=='admin') {
+                                    ?>
+                                        <a href="<?= base_url('delete_hutang_toko?id=').$key['id'] ?>">
                                             <button type="button" class="btn btn-danger">Hapus</button>
                                         </a>
+                                        <?php
+                                    }
+                                    ?>
                                     </td>
                                 </tr>
                                 <?php

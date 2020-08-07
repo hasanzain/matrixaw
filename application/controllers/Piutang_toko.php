@@ -27,14 +27,14 @@ class piutang_toko extends CI_Controller {
         
         
         if ($this->form_validation->run() == FALSE) {
-
+            $data = array('tanggal' => date("Y-m-d") );
             $this->load->view('header/header');
-            $this->load->view('piutang_toko/hutang');
+            $this->load->view('piutang_toko/hutang',$data);
             $this->load->view('header/footer');
             
         } else {
             $data = array(
-                'tanggal' => date("Y-m-d"),
+                'tanggal' => $this->input->post('tanggal'),
                 'nama_perusahaan' => $this->input->post('nama_perusahaan'),
                 'nama_pelanggan' => $this->input->post('nama_pelanggan'),
                 'nominal_hutang' => $this->input->post('nominal'),
@@ -71,14 +71,14 @@ class piutang_toko extends CI_Controller {
         
         
         if ($this->form_validation->run() == FALSE) {
-
+            $data = array('tanggal' => date("Y-m-d") );
             $this->load->view('header/header');
-            $this->load->view('piutang_toko/pembayaran');
+            $this->load->view('piutang_toko/pembayaran',$data);
             $this->load->view('header/footer');
             
         } else {
             $data = array(
-                'tanggal' => date("Y-m-d"),
+                'tanggal' => $this->input->post('tanggal'),
                 'nama_perusahaan' => $this->input->post('nama_perusahaan'),
                 'nama_pelanggan' => $this->input->post('nama_pelanggan'),
                 'nominal_hutang' => 0,
@@ -131,9 +131,19 @@ class piutang_toko extends CI_Controller {
     }
 
     //Delete one item
-    public function delete( $id = NULL )
+    public function delete_hutang_toko()
     {
-
+        $id = $this->input->get('id');
+        $this->db->where('toko',$this->session->userdata('toko'));
+        $this->db->where('id', $id);
+        
+        if ($this->db->delete('piutang_toko')) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil dihapus</div>');
+            redirect('daftar_hutang_toko');
+        }else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data gagal dihapus</div>');
+            redirect('daftar_hutang_toko');
+        }
     }
 }
 

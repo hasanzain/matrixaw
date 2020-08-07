@@ -5,7 +5,7 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <form action="<?= base_url("daftar_alarm") ?>" method="post">
+                    <form action="<?= base_url("daftar_barang_masuk") ?>" method="post">
 
                         <div class=" form-row col-ld-9">
                             <div class="form-group col-md-6">

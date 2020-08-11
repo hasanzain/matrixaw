@@ -7,7 +7,12 @@
                 <div class="card border-primary col-lg-10">
                     <div class="card-body">
                         <form action="<?= base_url("barang_masuk") ?>" method="post">
-
+                            <div class="form-group" id='EditForm'>
+                                <label>Tanggal</label>
+                                <input type="date" class="form-control" name="tanggal" id="tanggal"
+                                    value="<?= $tanggal ?>">
+                                <?= form_error('total','<small class="text-danger pl-3">','</small>'); ?>
+                            </div>
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label>Supplier</label>

@@ -70,6 +70,7 @@
                                     ?>
                                 <a class="nav-link" href="<?= base_url('laporan_penjualan') ?>">Laporan Penjualan</a>
                                 <a class="nav-link" href="<?= base_url('data_penjualan') ?>">Data Penjualan</a>
+                                <a class="nav-link" href="<?= base_url('data_pengeluaran') ?>">Data Pengeluaran</a>
                             </nav>
                         </div>
 

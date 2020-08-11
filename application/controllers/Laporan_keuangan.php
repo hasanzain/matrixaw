@@ -332,6 +332,35 @@ class laporan_keuangan extends CI_Controller {
         
     }
 
+    public function data_pengeluaran()
+    {
+        $tanggal = $this->input->post('tanggal');
+
+        
+        if($tanggal == null){
+            $data = array(
+                'data_penjualan' => null
+                );
+            $this->load->view('header/header');
+            $this->load->view('laporan_keuangan/data_pengeluaran',$data);
+            $this->load->view('header/footer');
+        }
+        else{
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
+            $this->db->where('toko',$this->session->userdata('toko'));
+            $this->db->where('tanggal', $tanggal);
+            $data_penjualan = $this->db->get('pengeluaran');
+            $data = array(
+                'data_penjualan' => $data_penjualan,
+                );
+            $this->load->view('header/header');
+            $this->load->view('laporan_keuangan/data_pengeluaran', $data);
+            $this->load->view('header/footer');
+        }
+        
+    }
+
     public function pengeluaran()
     {
         if ($this->session->userdata('role')!='admin') {
@@ -414,6 +443,23 @@ class laporan_keuangan extends CI_Controller {
         }else{
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data gagal dihapus</div>');
             redirect('data_penjualan');
+        }
+        
+
+    }
+
+    public function delete_pengeluaran( $id = NULL )
+    {
+        $id = $this->input->get('id');
+        $this->db->where('toko',$this->session->userdata('toko'));
+        $this->db->where('id', $id);
+        
+        if ($this->db->delete('pengeluaran')) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil dihapus</div>');
+            redirect('data_pengeluaran');
+        }else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data gagal dihapus</div>');
+            redirect('data_pengeluaran');
         }
         
 

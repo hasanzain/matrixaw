@@ -1,6 +1,7 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid">
+            <?= $this->session->flashdata('message')?>
             <h1 class="mt-4">Daftar barang masuk</h1>
 
             <div class="row">
@@ -42,7 +43,6 @@
                                     <th scope="col">Tanggal</th>
                                     <th scope="col">Nama Supplier</th>
                                     <th scope="col">Nama barang</th>
-                                    <th scope="col">Kode barang</th>
                                     <th scope="col">Price List</th>
                                     <th scope="col">Diskon 1</th>
                                     <th scope="col">Diskon 2</th>
@@ -53,6 +53,7 @@
                                     <th scope="col">Jumlah Beli</th>
                                     <th scope="col">Total</th>
                                     <th scope="col">ket</th>
+                                    <th scope="col">#</th>
 
                                 </tr>
                             </thead>
@@ -66,7 +67,6 @@
                                     <td><?= $key['tanggal'] ?></td>
                                     <td><?= $key['supplier'] ?></td>
                                     <td><?= $key['nama_barang'] ?></td>
-                                    <td><?= $key['kode_barang'] ?></td>
                                     <td><?= $key['price_list'] ?></td>
                                     <td><?= $key['diskon1'] ?></td>
                                     <td><?= $key['diskon2'] ?></td>
@@ -77,11 +77,24 @@
                                     <td><?= $key['jumlah_beli'] ?></td>
                                     <td><?= $key['total'] ?></td>
                                     <td><?= $key['keterangan'] ?></td>
+                                    <td>
+                                    <td>
+                                        <?php if ($this->session->userdata('role')=='admin') {
+                                    ?>
+                                        <a href="delete_barang_masuk?id=<?= $key['id'] ?>">
+                                            <button type="button" class="btn btn-danger">Hapus</button>
+                                        </a>
+                                        <?php
+                                    }
+                                    ?>
+                                    </td>
+                                    </td>
 
                                 </tr>
                                 <?php
                         }
                         ?>
+
                             </tbody>
                         </table>
                     </div>

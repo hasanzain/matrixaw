@@ -72,6 +72,7 @@ class barang extends CI_Controller {
             $data = array(
                 'barang' => $this->db->get('barang'),
                 'supplier' => $supplier,
+                'tanggal' => date("Y-m-d"),
                 );
 
             $this->load->view('header/header');    
@@ -93,7 +94,7 @@ class barang extends CI_Controller {
 
             $update_stok = $stok_terakhir + $jumlah_masuk;
             $barang_masuk = array(
-                'tanggal' => date("Y-m-d"), 
+                'tanggal' => $this->input->post('tanggal'),
                 'supplier' => $this->input->post('supplier'), 
                 'nama_barang' => $this->input->post('nama_barang'), 
                 'kode_barang' => $this->input->post('kode_barang'), 
@@ -112,13 +113,13 @@ class barang extends CI_Controller {
 
 
             $stok_barang = array(
-                'tanggal' => date("Y-m-d"), 
+                'tanggal' => $this->input->post('tanggal'), 
                 'kode_barang' => $this->input->post('kode_barang'), 
                 'jumlah_stok' => $update_stok
             );
 
             $data_mutasi = array(
-                'tanggal' => date("Y-m-d"), 
+                'tanggal' => $this->input->post('tanggal'), 
                 'nama_barang' => $nama_barang, 
                 'kode_barang' => $this->input->post('kode_barang'), 
                 'harga_beli' => $this->input->post('net'), 
@@ -168,6 +169,23 @@ class barang extends CI_Controller {
         $this->load->view('barang/daftar_barang_masuk',$data);
         $this->load->view('header/footer'); 
         
+    }
+
+    public function delete_barang_masuk( $id = NULL )
+    {
+        $id = $this->input->get('id');
+        $this->db->where('toko',$this->session->userdata('toko'));
+        $this->db->where('id', $id);
+        
+        if ($this->db->delete('barang_masuk')) {
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil dihapus</div>');
+            redirect('daftar_barang_masuk');
+        }else{
+            $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Data gagal dihapus</div>');
+            redirect('daftar_barang_masuk');
+        }
+        
+
     }
 
     public function order_barang()

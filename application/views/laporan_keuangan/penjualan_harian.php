@@ -59,6 +59,10 @@
                                 <input type="text" class="form-control" name="total" id="total">
                                 <?= form_error('total','<small class="text-danger pl-3">','</small>'); ?>
                             </div>
+                            <div class="form-group">
+                                <label>Keterangan</label>
+                                <textarea class="form-control" name="keterangan" rows="3"></textarea>
+                            </div>
                             <input type="submit" class="btn btn-primary" value="Tambahkan">
                         </form>
                     </div>

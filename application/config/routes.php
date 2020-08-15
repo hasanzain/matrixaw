@@ -62,6 +62,7 @@ $route['edit_penjualan'] = 'laporan_keuangan/edit_penjualan';
 $route['delete_penjualan'] = 'laporan_keuangan/delete_penjualan';
 $route['order_barang'] = 'barang/order_barang';
 $route['barang_masuk'] = 'barang/barang_masuk';
+$route['barang_masuk_isi'] = 'barang/barang_masuk_isi';
 $route['stok_barang'] = 'barang/stok_barang';
 $route['mutasi_barang'] = 'barang/mutasi_barang';
 $route['retur_barang'] = 'barang/retur_barang';

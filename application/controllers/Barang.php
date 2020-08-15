@@ -53,8 +53,42 @@ class barang extends CI_Controller {
         $this->load->view('header/footer');    
     }
 
+        public function barang_masuk()
+    {
+        $cari = $this->input->post('cari');
+        if ($cari == '') {
+            $this->db->where('toko', $this->session->userdata('toko'));
+            $supplier =$this->db->get('supplier');
+            $this->db->order_by('nama_barang', 'asc');
+            $data = array(
+                'barang' => $this->db->get('barang'),
+                'tanggal' => date("Y-m-d"),
+                'supplier' => $supplier
+            );
+            $this->load->view('header/header');    
+            $this->load->view('barang/barang_masuk', $data);
+            $this->load->view('header/footer');
+        }else{
+            $search = explode(' ',$cari);
+            foreach ($search as &$value) {
+                
+            }
+            $query = $this->db->query("SELECT * FROM barang WHERE nama_barang LIKE '%$search[0]%' and nama_barang LIKE '%$search[1]%'");
+            $this->db->where('toko', $this->session->userdata('toko'));
+            $supplier =$this->db->get('supplier');
+            $data = array(
+                'barang' => $query,
+                'tanggal' => date("Y-m-d"),
+                'supplier' => $supplier
+            );
+            $this->load->view('header/header');    
+            $this->load->view('barang/barang_masuk', $data);
+            $this->load->view('header/footer');
+        }
+        
+    }
     // Add a new item
-    public function barang_masuk()
+    public function barang_masuk_isi()
     {
         if ($this->session->userdata('role')!='admin') {
             redirect('auth/notadmin');

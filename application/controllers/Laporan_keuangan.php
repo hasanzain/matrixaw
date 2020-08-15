@@ -79,7 +79,8 @@ class laporan_keuangan extends CI_Controller {
                 'jumlah_beli' => $this->input->post('jumlah_beli'),
                 'harga_satuan' => $this->input->post('harga_satuan'),
                 'total' => $this->input->post('total'),
-                'toko' => $this->session->userdata('toko')
+                'toko' => $this->session->userdata('toko'),
+                'keterangan' => $this->input->post('keterangan')
              );
             $query = $this->db->insert('penjualan', $data);
             if ($query && $update && $insert) {

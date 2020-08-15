@@ -8,6 +8,14 @@
                     <div class="card-body">
                         <form action="<?= base_url("barang_masuk") ?>" method="post">
                             <div class="form-group" id='EditForm'>
+                                <label>Pencarian</label>
+                                <input type="text" class="form-control" name="cari" id="cari" onchange="hitung();">
+                                <?= form_error('jumlah_beli','<small class="text-danger pl-3">','</small>'); ?>
+                                <input type="submit" class="btn btn-primary" value="Cari">
+                            </div>
+                        </form>
+                        <form action="<?= base_url("barang_masuk_isi") ?>" method="post">
+                            <div class="form-group" id='EditForm'>
                                 <label>Tanggal</label>
                                 <input type="date" class="form-control" name="tanggal" id="tanggal"
                                     value="<?= $tanggal ?>">
@@ -30,28 +38,17 @@
 
                                 <div class="form-group col-md-4">
                                     <label>Nama Barang</label>
+                                    <!-- <input type="text" class="form-control" name="nama_barang" id="nama_barang"> -->
                                     <select class="form-control" name="nama_barang" id="nama_barang"
-                                        onchange="getdata2()"></select>
-                                    <script>
-                                    function getData() {
-                                        $.ajax({
-                                            type: 'POST',
-                                            url: '<?php echo base_url()."autocomplate/getdatabarang" ?>',
-                                            dataType: 'JSON',
-                                            success: function(data) {
-                                                var baris = '';
-
-                                                for (var i = 0; i < data.length; i++) {
-                                                    baris += '<option value="' + data[i].nama_barang +
-                                                        '">' + data[i]
-                                                        .nama_barang + '</option>';
-
-                                                }
-                                                $('#nama_barang').html(baris);
-                                            }
-                                        });
+                                        onchange="getdata2()">
+                                        <?php
+                                    foreach ($barang -> result_array() as $key) {
+                                        ?>
+                                        <option value="<?= $key['nama_barang'] ?>"><?= $key['nama_barang'] ?></option>
+                                        <?php
                                     }
-                                    </script>
+                                    ?>
+                                    </select>
                                 </div>
 
                                 <div class="form-group col-md-4" id='EditForm'>

@@ -60,6 +60,7 @@
                             <tbody>
                                 <?php
                         $i=1;
+                        $jumlah = 0;
                       foreach ($barang_masuk->result_array() as $key) {        
                             ?>
                                 <tr>
@@ -75,9 +76,8 @@
                                     <td><?= $key['ppn'] ?></td>
                                     <td><?= $key['net'] ?></td>
                                     <td><?= $key['jumlah_beli'] ?></td>
-                                    <td><?= $key['total'] ?></td>
+                                    <td class='text-right'><?= $key['total'] ?></td>
                                     <td><?= $key['keterangan'] ?></td>
-                                    <td>
                                     <td>
                                         <?php if ($this->session->userdata('role')=='admin') {
                                     ?>
@@ -87,12 +87,19 @@
                                         <?php
                                     }
                                     ?>
-                                    </td>
+                                        </>
                                     </td>
 
                                 </tr>
                                 <?php
+                                $jumlah += $key['total'];
                         }
+                        echo
+                                    "<tr class='table-info'>
+                                        <td colspan=12>Jumlah Total</td>
+                                        <td class='text-right'>$jumlah</td>
+                                        <td colspan=2>&nbsp;</td>
+                                    </tr>";
                         ?>
 
                             </tbody>

@@ -437,8 +437,33 @@ class laporan_keuangan extends CI_Controller {
         $id = $this->input->get('id');
         $this->db->where('toko',$this->session->userdata('toko'));
         $this->db->where('id', $id);
+        $penjualan = $this->db->get('penjualan');
+        $kodebarang=0;
+        $terjual=0;
+        $stoklama=0;
+        $stokbaru=0;
+
         
+        foreach ($penjualan->result_array() as $key) {
+            $namabarang = $key['nama_barang'];
+            $terjual = $key['jumlah_beli'];
+        }
+
+
+        $this->db->where('nama_barang',$namabarang);
+        $stok = $this->db->get('stok_barang');
+        foreach ($stok->result_array() as $key) {
+            $stoklama = $key['jumlah_stok'];
+        }
+        $stokbaru = $stoklama + $terjual;
+        
+        
+        $this->db->where('id', $id);
         if ($this->db->delete('penjualan')) {
+            $data = array('jumlah_stok' => $stokbaru);
+            $this->db->where('nama_barang',$namabarang);            
+            $this->db->update('stok_barang', $data);
+            
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil dihapus</div>');
             redirect('data_penjualan');
         }else{

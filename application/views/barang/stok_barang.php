@@ -31,12 +31,14 @@
                             </thead>
                             <tbody>
                                 <?php
-                        $i=1;
+                        $i=0;
                         $jumlahstok = 0;
+                        $harga=[];
+                        $totalharga=0;
                         foreach ($stok_barang->result_array() as $key) {        
                             ?>
                                 <tr>
-                                    <th scope="row"><?= $i++ ?></th>
+                                    <th scope="row"><?= $i ?></th>
                                     <td><?= $key['tanggal'] ?></td>
                                     <td><?= $key['nama_barang'] ?></td>
                                     <td><?= $key['kode_barang'] ?></td>
@@ -55,12 +57,15 @@
 
                                 </tr>
                                 <?php
+                                $harga[$i] = intval($key['harga_satuan']) * intval($key['jumlah_stok']);
+                                $totalharga += $harga[$i];
                                 $jumlahstok += $key['jumlah_stok'];
+                                $i++;
                         }
                         ?>
                                 <tr class="table-secondary">
-                                    <td colspan="5"><b>Jumlah Stok</b></td>
-                                    <td colspan="2"><?= $jumlahstok ?></td>
+                                    <td colspan="4"><b>Jumlah Stok</b></td>
+                                    <td colspan="3"><?= $totalharga ?></td>
                                 </tr>
                             </tbody>
                         </table>

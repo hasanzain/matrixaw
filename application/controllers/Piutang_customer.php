@@ -34,7 +34,7 @@ class piutang_customer extends CI_Controller {
             
         } else {
             $data = array(
-                'tanggal' => $this->input->post('tangga;'),
+                'tanggal' => $this->input->post('tanggal'),
                 'nama_perusahaan' => $this->input->post('nama_perusahaan'),
                 'nama_pelanggan' => $this->input->post('nama_pelanggan'),
                 'nominal_hutang' => $this->input->post('nominal'),

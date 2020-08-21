@@ -210,8 +210,31 @@ class barang extends CI_Controller {
         $id = $this->input->get('id');
         $this->db->where('toko',$this->session->userdata('toko'));
         $this->db->where('id', $id);
+        $barang_masuk = $this->db->get('barang_masuk');
+        $kode_barang=0;
+        $stoklama=0;
+        $stokmasuk=0;
+        $stokbaru=0;
+
+        foreach ($barang_masuk->result_array() as $key) {
+            $kode_barang = $key['kode_barang'];
+            $stokmasuk = $key['jumlah_beli'];
+        }
+
+        $this->db->where('kode_barang',$kode_barang);
+        $stok = $this->db->get('stok_barang');
+        foreach ($stok->result_array() as $key) {
+            $stoklama = $key['jumlah_stok'];
+        }
+        $stokbaru = $stoklama - $stokmasuk;
+
+
         
+        $this->db->where('id', $id);
         if ($this->db->delete('barang_masuk')) {
+            $data = array('jumlah_stok' => $stokbaru);
+            $this->db->where('kode_barang', $kode_barang);
+            $this->db->update('stok_barang', $data);
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Data berhasil dihapus</div>');
             redirect('daftar_barang_masuk');
         }else{

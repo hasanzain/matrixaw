@@ -101,9 +101,7 @@
 
 
                         </div>
-                        <?php
-                            if ($this->session->userdata('role')=='admin') {
-                            ?>
+
                         <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayoutsx"
                             aria-expanded="false" aria-controls="collapseLayoutsx">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -113,14 +111,18 @@
                         <div class="collapse" id="collapseLayoutsx" aria-labelledby="headingOne"
                             data-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
+                                <?php
+                            if ($this->session->userdata('role')=='admin') {
+                            ?>
                                 <a class="nav-link" href="<?= base_url('pengambilan_cat') ?>">Pengambilan</a>
                                 <a class="nav-link" href="<?= base_url('penjualan_mixing') ?>">Penjualan</a>
+                                <?php
+                        }
+                        ?>
                                 <a class="nav-link" href="<?= base_url('data_mixing') ?>">Data Mixing</a>
                             </nav>
                         </div>
-                        <?php
-                        }
-                        ?>
+
 
                         <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseLayouts2"
                             aria-expanded="false" aria-controls="collapseLayouts2">

@@ -110,9 +110,11 @@ class mixing extends CI_Controller {
 
     public function data_mixing()
     {
-        $tanggal = $this->input->post('tanggal');
+        $dari = $this->input->post('dari');
+        $sampai = $this->input->post('sampai');
+        $filter = $this->input->post('filter');
 
-        if($tanggal == null){
+        if($dari == null and $sampai=null){
             $data = array(
                 'data_mixing' => null
                 );
@@ -121,10 +123,12 @@ class mixing extends CI_Controller {
             $this->load->view('header/footer');
         }
         else{
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
+            if($filter != null){
+                $this->db->where('keterangan', $filter);
+            }
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$dari.' Sampai tanggal '.$sampai.'</div>');
             $this->db->where('toko',$this->session->userdata('toko'));
-            $this->db->where('tanggal', $tanggal);
+            $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
             $data = array(
                 'data_mixing' => $this->db->get('penjualan_mixing')
                 );

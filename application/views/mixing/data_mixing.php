@@ -11,9 +11,11 @@
                         <div class=" form-row col-ld-9">
                             <div class="form-group col-md-6">
                                 <div class="input-group">
-                                    <input class="form-control" type="text" name="nama_barang"
-                                        placeholder="nama barang">
-                                    <input class="form-control" type="date" name="tanggal">
+                                    <input class="form-control" type="text" name="filter">
+                                    <input placeholder="Dari" class="form-control" type="text"
+                                        onfocus="(this.type='date')" name="dari">
+                                    <input placeholder="Sampai" class="form-control" type="text"
+                                        onfocus="(this.type='date')" name="sampai">
                                     <div class="input-group-append">
                                         <input class="btn btn-outline-primary col-lg-12" type="submit" value="cari">
                                     </div>
@@ -63,12 +65,17 @@
                                     <td class="text-right"><?= $key['harga'] ?></td>
                                     <td><?= $key['keterangan'] ?></td>
                                     <td class="text-right">
+                                        <?php if ($this->session->userdata('role')=='admin') {
+                                    ?>
                                         <a href="edit_mixing?id=<?= $key['id'] ?>">
                                             <button type="button" class="btn btn-warning">Edit</button>
                                         </a>
                                         <a href="delete_mixing?id=<?= $key['id'] ?>">
                                             <button type="button" class="btn btn-danger">Hapus</button>
                                         </a>
+                                        <?php
+                                    }
+                                    ?>
                                     </td>
 
                                 </tr>

@@ -302,10 +302,13 @@ class laporan_keuangan extends CI_Controller {
 
     public function data_penjualan()
     {
-        $tanggal = $this->input->post('tanggal');
+        $dari = $this->input->post('dari');
+        $sampai = $this->input->post('sampai');
+        $filter = $this->input->post('filter');
+
 
         
-        if($tanggal == null){
+        if($dari == null and $sampai=null){
             $data = array(
                 'data_penjualan' => null
                 );
@@ -314,13 +317,19 @@ class laporan_keuangan extends CI_Controller {
             $this->load->view('header/footer');
         }
         else{
-
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
+            if($filter != null){
+                $this->db->where('keterangan', $filter);
+            }
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$dari.' Sampai tanggal '.$sampai.'</div>');
             $this->db->where('toko',$this->session->userdata('toko'));
-            $this->db->where('tanggal', $tanggal);
+            $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
             $data_penjualan = $this->db->get('penjualan');
+
+            if($filter != null){
+                $this->db->where('keterangan', $filter);
+            }
             $this->db->where('toko',$this->session->userdata('toko'));
-            $this->db->where('tanggal', $tanggal);
+            $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
             $mixing = $this->db->get('penjualan_mixing');
             $data = array(
                 'data_penjualan' => $data_penjualan,
@@ -335,10 +344,11 @@ class laporan_keuangan extends CI_Controller {
 
     public function data_pengeluaran()
     {
-        $tanggal = $this->input->post('tanggal');
+        $dari = $this->input->post('dari');
+        $sampai = $this->input->post('sampai');
 
         
-        if($tanggal == null){
+        if($dari == null and $sampai== null){
             $data = array(
                 'data_penjualan' => null
                 );
@@ -348,9 +358,9 @@ class laporan_keuangan extends CI_Controller {
         }
         else{
 
-            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$tanggal.'</div>');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">Laporan tanggal '.$dari.' sampai tanggal '.$sampai.'</div>');
             $this->db->where('toko',$this->session->userdata('toko'));
-            $this->db->where('tanggal', $tanggal);
+            $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
             $data_penjualan = $this->db->get('pengeluaran');
             $data = array(
                 'data_penjualan' => $data_penjualan,

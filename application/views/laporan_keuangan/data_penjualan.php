@@ -11,9 +11,11 @@
                         <div class=" form-row col-ld-9">
                             <div class="form-group col-md-6">
                                 <div class="input-group">
-                                    <input class="form-control" type="text" name="nama_barang"
-                                        placeholder="nama barang">
-                                    <input class="form-control" type="date" name="tanggal">
+                                    <input class="form-control" type="text" name="filter">
+                                    <input placeholder="Dari" class="form-control" type="text"
+                                        onfocus="(this.type='date')" name="dari">
+                                    <input placeholder="Sampai" class="form-control" type="text"
+                                        onfocus="(this.type='date')" name="sampai">
                                     <div class="input-group-append">
                                         <input class="btn btn-outline-primary col-lg-12" type="submit" value="cari">
                                     </div>
@@ -91,7 +93,7 @@
                                     <td>&nbsp</td>
                                     <td class="text-right">Rp.</td>
                                     <td class="text-right"><?= $key['harga'] ?></td>
-                                    <td></td>
+                                    <td><?= $key['keterangan'] ?></td>
                                     <td class="text-right">
                                         <?php if ($this->session->userdata('role')=='admin') {
                                     ?>
@@ -114,7 +116,8 @@
                                     "<tr class='table-info'>
                                         <td colspan=4>Jumlah Total</td>
                                         <td class='text-right'>Rp.</td>
-                                        <td colspan=2 class='text-right'>$jumlah</td>
+                                        <td class='text-right'>$jumlah</td>
+                                        <td></td>
                                         <td></td>
                                     </tr>";
                         }

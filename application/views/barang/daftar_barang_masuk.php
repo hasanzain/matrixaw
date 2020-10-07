@@ -9,20 +9,23 @@
                     <form action="<?= base_url("daftar_barang_masuk") ?>" method="post">
 
                         <div class=" form-row col-ld-9">
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-7">
                                 <div class="input-group">
                                     <select class="form-control" name="nama_supplier">
                                         <option value="">Nama Supplier</option>
                                         <?php
-                                    foreach ($supplier->result_array() as $key) {
-                                        ?>
+                            foreach ($supplier->result_array() as $key) {
+                                ?>
                                         <option value="<?= $key['nama_supplier'] ?>"><?= $key['nama_supplier'] ?>
                                         </option>
                                         <?php
-                                    }
-                                    ?>
+                            }
+                            ?>
                                     </select>
-                                    <input class="form-control" type="date" name="tanggal">
+                                    <input placeholder="Dari" class="form-control" type="text"
+                                        onfocus="(this.type='date')" name="dari">
+                                    <input placeholder="Sampai" class="form-control" type="text"
+                                        onfocus="(this.type='date')" name="sampai">
                                     <div class="input-group-append">
                                         <input class="btn btn-outline-primary col-lg-12" type="submit" value="cari">
                                     </div>

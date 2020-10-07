@@ -183,16 +183,20 @@ class barang extends CI_Controller {
         $this->db->order_by('nama_supplier', 'asc');
         $supplier = $this->db->get('supplier');
         $nama_supplier = $this->input->post('nama_supplier');
-        $tanggal = $this->input->post('tanggal');
+        $dari = $this->input->post('dari');
+        $sampai = $this->input->post('sampai');
         
         $this->db->where('toko',$this->session->userdata('toko'));
         if ($nama_supplier != null) {
             $this->db->where('supplier', $nama_supplier);
 
         }
-        if ($tanggal != null) {
-            $this->db->where('tanggal', $tanggal);
+        
+        if ($dari != null and $sampai != null) {
+            $this->db->where('tanggal BETWEEN "'. date('Y-m-d', strtotime($dari)). '" and "'. date('Y-m-d', strtotime($sampai)).'"');
+
         }
+
         $this->db->order_by('id', 'desc');
         $data = array(
             'barang_masuk' => $this->db->get('barang_masuk'),

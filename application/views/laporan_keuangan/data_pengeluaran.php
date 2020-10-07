@@ -11,7 +11,10 @@
                         <div class=" form-row col-ld-9">
                             <div class="form-group col-md-6">
                                 <div class="input-group">
-                                    <input class="form-control" type="date" name="tanggal">
+                                    <input placeholder="Dari" class="form-control" type="text"
+                                        onfocus="(this.type='date')" name="dari">
+                                    <input placeholder="Sampai" class="form-control" type="text"
+                                        onfocus="(this.type='date')" name="sampai">
                                     <div class="input-group-append">
                                         <input class="btn btn-outline-primary col-lg-12" type="submit" value="cari">
                                     </div>
